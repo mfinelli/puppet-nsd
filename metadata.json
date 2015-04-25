@@ -1,0 +1,14 @@
+{
+  "name": "mfinelli-nsd",
+  "version": "0.0.0",
+  "author": "mfinelli",
+  "summary": "Manage NSD name server.",
+  "license": "Apache 2.0",
+  "source": "https://github.com/mfinelli/puppet-nsd",
+  "project_page": "https://github.com/mfinelli/puppet-nsd",
+  "issues_url": "https://github.com/mfinelli/puppet-nsd/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+

@@ -6,7 +6,6 @@
 2. [Module Description - What the module does and why it is useful](#module-description)
 3. [Setup - The basics of getting started with nsd](#setup)
     * [What nsd affects](#what-nsd-affects)
-    * [Setup requirements](#setup-requirements)
     * [Beginning with nsd](#beginning-with-nsd)
 4. [Usage - Configuration options and additional functionality](#usage)
 5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
@@ -15,65 +14,126 @@
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+Manage the installation and configuration of NSD (name serve daemon) and zone
+files.
 
 ## Module Description
 
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
-
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
+This module is still under development, but it will be possible to configure
+all aspects of NSD including remote, zone files and master/slave configurations.
 
 ## Setup
 
 ### What nsd affects
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
+* Only non-default configuration options are written to `etc/nsd/nsd.conf`.
+* Also manages the nsd package and service (unless `service_manage = false`).
 
 ### Beginning with nsd
 
-The very basic steps needed for a user to get the module up and running.
+Install the package an make sure it is enabled and running with default options:
 
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+```puppet
+include '::nsd'
+```
+
+With some basic configuration:
+
+```puppet
+class { '::nsd':
+  options => {
+    'server-count' => 1,
+    'ip-address'   => ['1.2.3.4', '5.6.7.8'],
+  }
+}
+```
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+
+The bare miniumum will make sure the nsd package is installed and the service is
+running:
+
+```puppet
+include '::nsd'
+```
+
+To pass ins some configuration options:
+
+```puppet
+class { '::nsd':
+  options => {
+    'server-count' => 1,
+    'ip-address'   => ['1.2.3.4', '5.6.7.8'],
+  }
+}
+```
 
 ## Reference
 
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
+### Classes
+
+#### Public classes
+
+* nsd: main class, includes all other classes
+
+#### Private classes
+
+* nsd::install: Handles the packages.
+* nsd::config: Handles the configuration file.
+* nsd::service: Handles the service.
+
+### Parameters
+
+The following parameters are available in the nsd module:
+
+#### `options`
+
+Hash of options to set in the configuration file under the `server` section.
+
+```puppet
+$options = {
+  'option'       => 'value',
+  'other_option' => ['value1', 'value2']
+}
+```
+
+#### `package_ensure`
+
+Tells Puppet whether the NSD package should be installed, and what version. Valid options: 'present', 'latest', or a
+specific version number. Default value: 'present'
+
+#### `package_name`
+
+Tells Puppet what NSD package to manage. Valid options: string. Default value: 'nsd'
+
+#### `service_enable`
+
+Tells Puppet whether to enable the NSD service at boot. Valid options: 'true' or 'false'. Default value: 'true'
+
+#### `service_ensure`
+
+Tells Puppet whether the NSD service should be running. Valid options: 'running' or 'stopped'. Default value: 'running'
+
+#### `service_manage`
+
+Tells Puppet whether to manage the NSD service. Valid options: 'true' or 'false'. Default value: 'true'
+
+#### `service_name`
+
+Tells Puppet what NSD service to manage. Valid options: string. Default value: 'nsd'
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+This module has been tested on:
+
+* Debian 8 (jessie)
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+This module is still under development. If you would like to help (especially for platforms other
+than Debian) please send a pull request at [GitHub](https://github.com/mfinelli/puppet-nsd).
 
-## Release Notes/Contributors/Etc **Optional**
+## Authors
 
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.
+* Mario Finelli

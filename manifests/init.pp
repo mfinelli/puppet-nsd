@@ -29,13 +29,26 @@
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Mario Finelli <mario@finel.li>
 #
 # === Copyright
 #
-# Copyright 2015 Your name here, unless otherwise noted.
+# Copyright 2015 Mario Finelli, unless otherwise noted.
 #
-class nsd {
-
-
+class nsd (
+  $package_name    = $nsd::params::package_name,
+  $package_ensure  = $nsd::params::package_ensure,
+  $service_enable  = $nsd::params::service_enable,
+  $service_name    = $nsd::params::service_name,
+  $service_ensure  = $nsd::params::service_ensure,
+  $service_manage  = $nsd::params::service_manage,
+  $config          = $nsd::params::config,
+  $config_template = $nsd::params::config_template,
+  $options         = {},
+) inherits nsd::params {
+  anchor { 'nsd::start': } ->
+    class { '::nsd::install': } ->
+    class { '::nsd::config': } ~>
+    class { '::nsd::service': } ->
+  anchor { 'nsd::end': }
 }

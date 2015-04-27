@@ -1,6 +1,7 @@
 # Configure nsd remote.
 class nsd::remote (
   $config              = undef,
+  $config_template     = 'nsd/remote.erb',
   $enable              = true,
   $interface           = ['127.0.0.1', '::1'],
   $port                = 8952,
@@ -83,6 +84,6 @@ class nsd::remote (
   concat::fragment { 'nsd-remote':
     order => '02',
     target => $config_file,
-    content => template('nsd/remote.erb'),
+    content => template($config_template),
   }
 }

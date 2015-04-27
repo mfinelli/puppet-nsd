@@ -1,0 +1,29 @@
+<%- if @enable -%>
+# Remote control config section.
+remote-control:
+        control-enable: yes
+  <%- unless @interface.nil? -%>
+    <%- if @interface.is_a?(Array) -%>
+      <%- @interface.each do |i| -%>
+        control-interface: <%= i %>
+      <%- end -%>
+    <%- else -%>
+        control-interface: <%= @interface %>
+    <%- end -%>
+  <%- end -%>
+  <%- unless @port.nil? -%>
+        control-port: <%= @port %>
+  <%- end -%>
+  <%- unless @server_key_file.nil? -%>
+        server-key-file: "<%= @server_key_file %>"
+  <%- end -%>
+  <%- unless @server_cert_file.nil? -%>
+        server-cert-file: "<%= @server_cert_file %>"
+  <%- end -%>
+  <%- unless @control_key_file.nil? -%>
+        control-key-file: "<%= @control_key_file %>"
+  <%- end -%>
+  <%- unless @control_cert_file.nil? -%>
+        control-cert-file: "<%= @control_cert_file %>"
+  <%- end -%>
+<%- end -%>

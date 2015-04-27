@@ -20,7 +20,9 @@ files.
 ## Module Description
 
 This module is still under development, but it will be possible to configure
-all aspects of NSD including remote, zone files and master/slave configurations.
+all aspects of NSD including zone files and master/slave configurations.
+
+So far it is possible to configure the nsd server and remote.
 
 ## Setup
 
@@ -69,13 +71,40 @@ class { '::nsd':
 }
 ```
 
+To configure the remote with defaults:
+
+```puppet
+include '::nsd::remote'
+```
+
+To set configuration options where puppet *does not* manage files:
+
+```puppet
+class { '::nsd::remote':
+  port            => 8953,
+  server_key_file => '/etc/nsd/arbitrary_filename.key',
+}
+```
+
+To have puppet manage the keys and certificate files:
+
+```puppet
+class { '::nsd::remote':
+  server_key_manage  => true,
+  server_key_file    => 'puppet:///modules/nsd/nsd_server.key'
+  server_cert_manage => true,
+  server_cert_file   => 'puppet:///modules/nsd/nsd_server.pem'
+}
+```
+
 ## Reference
 
 ### Classes
 
 #### Public classes
 
-* nsd: main class, includes all other classes
+* nsd: main class, includes all other private classes
+* nsd::remote: enables and configures the remote
 
 #### Private classes
 
@@ -83,9 +112,19 @@ class { '::nsd':
 * nsd::config: Handles the configuration file.
 * nsd::service: Handles the service.
 
-### Parameters
+### Parameters: `nsd`
 
 The following parameters are available in the nsd module:
+
+#### `config`
+
+This is the filename of the main configuration file. Default value:
+'/etc/nsd/nsd.conf'
+
+#### `config_template`
+
+The template to use for the server section of the configuration file. Default
+value: 'nsd/nsd.conf.erb'
 
 #### `options`
 
@@ -100,28 +139,100 @@ $options = {
 
 #### `package_ensure`
 
-Tells Puppet whether the NSD package should be installed, and what version. Valid options: 'present', 'latest', or a
-specific version number. Default value: 'present'
+Tells Puppet whether the NSD package should be installed, and what version.
+Valid options: 'present', 'latest', or a specific version number. Default value:
+'present'
 
 #### `package_name`
 
-Tells Puppet what NSD package to manage. Valid options: string. Default value: 'nsd'
+Tells Puppet what NSD package to manage. Valid options: string. Default value:
+'nsd'
 
 #### `service_enable`
 
-Tells Puppet whether to enable the NSD service at boot. Valid options: 'true' or 'false'. Default value: 'true'
+Tells Puppet whether to enable the NSD service at boot. Valid options: 'true' or
+'false'. Default value: 'true'
 
 #### `service_ensure`
 
-Tells Puppet whether the NSD service should be running. Valid options: 'running' or 'stopped'. Default value: 'running'
+Tells Puppet whether the NSD service should be running. Valid options: 'running'
+or 'stopped'. Default value: 'running'
 
 #### `service_manage`
 
-Tells Puppet whether to manage the NSD service. Valid options: 'true' or 'false'. Default value: 'true'
+Tells Puppet whether to manage the NSD service. Valid options: 'true' or
+'false'. Default value: 'true'
 
 #### `service_name`
 
-Tells Puppet what NSD service to manage. Valid options: string. Default value: 'nsd'
+Tells Puppet what NSD service to manage. Valid options: string. Default value:
+'nsd'
+
+### Parameters: `nsd::remote`
+
+The following parameters are available in the nsd::remote module:
+
+#### `config`
+
+The config file to write the remote section. Inherits from nsd::params::config,
+so if you overwrite there you'll need to overwrite here as well.
+
+#### `config_template`
+
+The template to use for writing the remote section. Default value:
+'nsd/remote.erb'
+
+#### `enable`
+
+Whether to enable the remote or not. Default value is true but it should never
+be necessary to set it to false, in that case just don't include the nsd::remote
+module and nothing will be written to the configuration file.
+
+#### `interface`
+
+Either a string or an array of strings of interfaces that ar listened to for
+control. Defaults to localhost.
+
+#### `port`
+
+Port number for remote control operations (uses TLS over TCP). Default value:
+8952
+
+#### `server_key_manage`
+
+Whether to have puppet manage the server key file. Default value: false
+
+#### `server_key_file`
+
+If `server_key_manage` is true then this points to a source for the file.
+Otherwise it can be undefined or an arbitrary filename for server-key-file.
+
+#### `server_cert_manage`
+
+Whether to have puppet manage the server cert file. Default value: false
+
+#### `server_cert_file`
+
+If `server_cert_manage` is true then this points to a source for the file.
+Otherwise it can be undefined or an arbitrary filename for server-cert-file.
+
+#### `control_key_manage`
+
+Whether to have puppet manage the control key file. Default value: false
+
+#### `control_key_file`
+
+If `control_key_manage` is true then this points to a source for the file.
+Otherwise it can be undefined or an arbitrary filename for control-key-file.
+
+#### `control_cert_manage`
+
+Whether to have puppet manage the control cert file. Default value: false
+
+#### `control_cert_file`
+
+If `control_cert_manage` is true then this points to a source for the file.
+Otherwise it can be undefined or an arbitrary filename for control-cert-file.
 
 ## Limitations
 
@@ -131,8 +242,12 @@ This module has been tested on:
 
 ## Development
 
-This module is still under development. If you would like to help (especially for platforms other
-than Debian) please send a pull request at [GitHub](https://github.com/mfinelli/puppet-nsd).
+This module is still under development. If you would like to help (especially
+for platforms other than Debian) please send fork the project at
+[GitHub](https://github.com/mfinelli/puppet-nsd) and send a pull request. New
+features belong in a feature branch named `feature/your-feature` and the pull
+request should be against the
+[develop](https://github.com/mfinelli/puppet-nsd/tree/develop) branch.
 
 ## Authors
 

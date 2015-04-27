@@ -14,16 +14,16 @@ remote-control:
   <%- unless @port.nil? -%>
         control-port: <%= @port %>
   <%- end -%>
-  <%- unless @server_key_file.nil? -%>
-        server-key-file: "<%= @server_key_file %>"
+  <%- unless @server_key.nil? -%>
+        server-key-file: "<%= @server_key %>"
   <%- end -%>
-  <%- unless @server_cert_file.nil? -%>
-        server-cert-file: "<%= @server_cert_file %>"
+  <%- unless @server_cert.nil? -%>
+        server-cert-file: "<%= @server_cert %>"
   <%- end -%>
-  <%- unless @control_key_file.nil? -%>
-        control-key-file: "<%= @control_key_file %>"
+  <%- unless @control_key.nil? -%>
+        control-key-file: "<%= @control_key %>"
   <%- end -%>
-  <%- unless @control_cert_file.nil? -%>
-        control-cert-file: "<%= @control_cert_file %>"
+  <%- unless @control_cert.nil? -%>
+        control-cert-file: "<%= @control_cert %>"
   <%- end -%>
 <%- end -%>

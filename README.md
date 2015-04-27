@@ -243,8 +243,11 @@ This module has been tested on:
 ## Development
 
 This module is still under development. If you would like to help (especially
-for platforms other than Debian) please send a pull request at
-[GitHub](https://github.com/mfinelli/puppet-nsd).
+for platforms other than Debian) please send fork the project at
+[GitHub](https://github.com/mfinelli/puppet-nsd) and send a pull request. New
+features belong in a feature branch named `feature/your-feature` and the pull
+request should be against the
+[develop](https://github.com/mfinelli/puppet-nsd/tree/develop) branch.
 
 ## Authors
 

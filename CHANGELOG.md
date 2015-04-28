@@ -4,6 +4,16 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 [puppet modules](https://forge.puppetlabs.com) it adheres to
 [semantic versioning](http://semver.org).
 
+## [Unreleased]
+
+This release adds configuration and management of keys and patterns, including
+slave and master preset configurations.
+
+## Additions
+
+* New `nsd::key` defined type which allows the creation of keys either directly
+  in the configuration file or as separate files to be included in it.
+
 ## [0.2.0] 2015-04-27
 
 This release adds configuration and management of the nsd remote.

@@ -30,7 +30,7 @@ define nsd::key (
         concat::fragment { "nsd-keyfile-${name}":
           order   => '03',
           target  => $config_file,
-          content => "include: \"/etc/nsd/${name}.keyfile\"\n",
+          content => "include: \"/etc/nsd/${name}.keyfile\"\n\n",
         }
       } else {
         concat::fragment { "nsd-key-${name}":

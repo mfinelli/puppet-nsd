@@ -13,6 +13,9 @@ slave and master preset configurations.
 
 * New `nsd::key` defined type which allows the creation of keys either directly
   in the configuration file or as separate files to be included in it.
+* New `nsd::pattern` defined type whi can create patterns. This type will be
+  extended to allow easy creation of slave/master setup, but it is also
+  possible to create arbitrary patterns using the `options` parameter.
 
 ## [0.2.0] 2015-04-27
 

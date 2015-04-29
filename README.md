@@ -112,6 +112,11 @@ class { '::nsd::remote':
 * nsd::config: Handles the configuration file.
 * nsd::service: Handles the service.
 
+### Defined types
+
+* nsd::key: creates transfer keys.
+* nsd::pattern: creates pattern sections.
+
 ### Parameters: `nsd`
 
 The following parameters are available in the nsd module:
@@ -233,6 +238,57 @@ Whether to have puppet manage the control cert file. Default value: false
 
 If `control_cert_manage` is true then this points to a source for the file.
 Otherwise it can be undefined or an arbitrary filename for control-cert-file.
+
+### Parameters: `nsd::key`
+
+The following parameters are available in the nsd::key defined type:
+
+#### `config`
+
+The config file to write the key section. Inherits from nsd::params::config, so
+if you overwrite there you'll need to overwrite here as well.
+
+#### `config_template`
+
+The template to use for writing the key section. Default value: 'nsd/key.erb'
+
+#### `algorithm`
+
+Algorithm to use. Valid options: 'md5', 'sha1', 'sha256'. Defaul value: 'sha256'
+
+#### `secret`
+
+The secret material to use. Recommended to generate with the command:
+`dd if=/dev/random of=/dev/stdout count=1 bs=32 | base64`.
+
+#### `secret_file`
+
+Whether the secret should be stored in a separate file with 640 permissions.
+Defaults to false. If true the filename will be `name.keyfile`.
+
+### Parameters `nsd::pattern`
+
+The following parameters are available in the nsd::pattern defined type:
+
+#### `config`
+
+The config file to write the pattern section. Inherits from nsd::params::config,
+so if you overwrite there you'll need to overwrite here as well.
+
+#### `config_template`
+
+The template to use for writing the pattern section. Default value:
+'nsd/pattern.erb'
+
+#### `options`
+
+Hash of options to set for the pattern.
+
+```puppet
+$options = {
+  'option' => 'value',
+}
+```
 
 ## Limitations
 

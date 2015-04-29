@@ -97,6 +97,24 @@ class { '::nsd::remote':
 }
 ```
 
+To setup transfer keys:
+
+```puppet
+::nsd::key { 'testkey':
+  secret => 'INhFh7DsZRRXp2NX/0vB+nS7Nh+lOfBJnpQgVmXllVs='
+}
+```
+
+To create an arbitrary pattern:
+
+```puppet
+::nsd::pattern { 'testpattern':
+  options => {
+    'notify-retry' => 5,
+  }
+}
+```
+
 ## Reference
 
 ### Classes

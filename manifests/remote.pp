@@ -29,6 +29,8 @@ class nsd::remote (
       file { $server_key:
         ensure => present,
         mode   => '0640',
+        owner  => 0,
+        group  => 0,
         source => $server_key_file,
       }
     }
@@ -44,6 +46,8 @@ class nsd::remote (
       file { $server_cert:
         ensure => present,
         mode   => '0640',
+        owner  => 0,
+        group  => 0,
         source => $server_cert_file,
       }
     }
@@ -59,6 +63,8 @@ class nsd::remote (
       file { $control_key:
         ensure => present,
         mode   => '0640',
+        owner  => 0,
+        group  => 0,
         source => $control_key_file,
       }
     }
@@ -74,6 +80,8 @@ class nsd::remote (
       file { $control_cert:
         ensure => present,
         mode   => '0640',
+        owner  => 0,
+        group  => 0,
         source => $control_cert_file,
       }
     }
@@ -82,8 +90,8 @@ class nsd::remote (
   }
 
   concat::fragment { 'nsd-remote':
-    order => '02',
-    target => $config_file,
+    order   => '02',
+    target  => $config_file,
     content => template($config_template),
   }
 }

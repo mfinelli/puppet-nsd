@@ -6,8 +6,7 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 
 ## [0.3.0] 2015-04-28
 
-This release adds configuration and management of keys and patterns, including
-slave and master preset configurations.
+This release adds configuration and management of keys and patterns.
 
 ### Additions
 

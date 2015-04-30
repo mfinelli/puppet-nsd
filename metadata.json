@@ -3,7 +3,7 @@
   "version": "0.4.0",
   "author": "mfinelli",
   "summary": "Manage NSD name server.",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "source": "https://github.com/mfinelli/puppet-nsd",
   "project_page": "https://github.com/mfinelli/puppet-nsd",
   "issues_url": "https://github.com/mfinelli/puppet-nsd/issues",

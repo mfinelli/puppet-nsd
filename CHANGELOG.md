@@ -4,7 +4,7 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 [puppet modules](https://forge.puppetlabs.com) it adheres to
 [semantic versioning](http://semver.org).
 
-## [Unreleased]
+## [0.4.0] 2015-04-29
 
 This release adds in slave and master patters which are essentially just macros
 for the existing pattern definition.

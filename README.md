@@ -115,6 +115,32 @@ To create an arbitrary pattern:
 }
 ```
 
+To create a master pattern: (note that the `slave_key` is just the key name and
+that setting options is completely optional)
+
+```puppet
+::nsd::pattern::master { 'master':
+  slave_server => '127.0.0.1',
+  slave_key    => 'testkey',
+  options      => {
+    'notify-retry' => 5,
+  }
+}
+```
+
+Now the pattern can be included in zones by the name "to_slave_127.0.0.1".
+
+To create a slave pattern: (note that the `master_key` is just the key name)
+
+```puppet
+::nsd::pattern::slave { 'slave':
+  master_server => '127.0.0.1',
+  master_key    => 'testkey',
+}
+```
+
+Now the pattern can be included in zones by the name "from_master_127.0.0.1".
+
 ## Reference
 
 ### Classes
@@ -134,6 +160,10 @@ To create an arbitrary pattern:
 
 * nsd::key: creates transfer keys.
 * nsd::pattern: creates pattern sections.
+* nsd::pattern::master: a macro for the nsd::pattern type to ease creation of
+  master servers.
+* nsd::pattern::slave: a macro for the nsd::pattern type to ease creation of
+  slave servers.
 
 ### Parameters: `nsd`
 
@@ -307,6 +337,43 @@ $options = {
   'option' => 'value',
 }
 ```
+
+### Parameters `nsd::pattern::master`
+
+The following paramters are available in the nsd::pattern::master defined type:
+
+#### `slave_server`
+
+The server that needs to be notified when zone files change.
+
+#### `slave_key`
+
+The name of the TSIG key with which to perform the transfer.
+
+#### `options`
+
+Any additional valid pattern options to set.
+
+### Parameters `nsd::pattern::slave`
+
+The following parameters are available in the nsd::pattern::slave defined type:
+
+#### `master_server`
+
+The server to allow zone transfers from.
+
+#### `master_key`
+
+The name of the TSIG key with which to perform the transfer.
+
+#### `transfer_mode`
+
+The transfer mode. Since NSD only speaks AXFR you shouldn't ever need to change
+it, but depending on your other servers you might want something like IXFR/UDP.
+
+#### `options`
+
+Any additional valid pattern options to set.
 
 ## Limitations
 

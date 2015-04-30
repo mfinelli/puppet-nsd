@@ -1,16 +1,16 @@
 define nsd::pattern::master (
-  $notify_server = undef,
-  $notify_key    = undef,
-  $options       = {},
+  $slave_server = undef,
+  $slave_key    = undef,
+  $options      = {},
 ) {
-  $notify = "${notify_server} ${notify_key}"
+  $notify = "${slave_server} ${slave_key}"
   $master_options = {
     'notify'      => $notify,
     'provide-xfr' => $notify,
   }
 
   $merged_options = merge($master_options, $options)
-  ::nsd::pattern { "to_slave_${notify_server}":
+  ::nsd::pattern { "to_slave_${slave_server}":
     options => $merged_options,
   }
 }

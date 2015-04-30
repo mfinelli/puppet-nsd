@@ -4,10 +4,22 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 [puppet modules](https://forge.puppetlabs.com) it adheres to
 [semantic versioning](http://semver.org).
 
+## [0.4.0] 2015-04-29
+
+This release adds in slave and master patters which are essentially just macros
+for the existing pattern definition.
+
+### Additions
+
+* New `nsd::pattern::master` defined type which is just an existing
+  `nsd::pattern` but with options `notify` and `provide-xfr` enforced.
+* New `nsd::pattern::slave` defined type which is just an existing
+  `nsd::pattern` but with the options `allow-notify` and `request-xfr` enforced
+  with an optional parameter to change the transfer mode.
+
 ## [0.3.0] 2015-04-28
 
-This release adds configuration and management of keys and patterns, including
-slave and master preset configurations.
+This release adds configuration and management of keys and patterns.
 
 ### Additions
 

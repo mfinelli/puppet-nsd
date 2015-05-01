@@ -4,7 +4,7 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 [puppet modules](https://forge.puppetlabs.com) it adheres to
 [semantic versioning](http://semver.org).
 
-## [Unreleased]
+## [0.5.0] 2015-05-01
 
 This release adds the ability to add zones to the configuration file and to
 create authoritative zonefiles.

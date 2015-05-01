@@ -13,10 +13,10 @@ define nsd::zonefile (
 ) {
   $zonefile_path = "/etc/nsd/${name}.zone"
   file { $zonefile_path:
-    ensure => present,
-    mode   => '0644',
-    owner  => 0,
-    group  => 0,
+    ensure  => present,
+    mode    => '0644',
+    owner   => 0,
+    group   => 0,
     content => template('nsd/zonefile.erb'),
   }
 

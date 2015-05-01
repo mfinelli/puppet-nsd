@@ -1,0 +1,21 @@
+;; <%= @name %> authoritative zone managed by puppet
+
+$ORIGIN <%= @name %>.
+$TTL <%= @ttl %>
+
+@ IN SOA <%= @nameservers.first %> <%= @admin_email.gsub('@', '.') %>. ( <%-
+    %><%= @serial_number %> <%= @refresh %> <%= @retry %> <%= @expire %> <%-
+    %> <%= @ttl %> )
+
+<%- @nameservers.each do |nameserver| -%>
+  <%- -%> NS <%= nameserver %>
+<%- end -%>
+
+<%- @mxservers.keys.sort.each do |priority| -%>
+  <%- -%> MX <%= priority %> <%= @mxservers.fetch(priority) %>
+<%- end -%>
+
+<%- @records.each do |record| -%>
+  <%- -%> <%= record['name'] %> <%= record['type'] %> <%= record['location'] %>
+<%- end -%>
+

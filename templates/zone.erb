@@ -1,0 +1,13 @@
+zone:
+        name: "<%= @name %>"
+        zonefile: "<%= @zonefile_path %>"
+  <%- @options.map do |key, value| -%>
+    <%- if value.is_a?(Array) -%>
+      <%- value.each do |value_i| -%>
+        <%= key %>: <%= value_i %>
+      <%- end -%>
+    <%- else -%>
+        <%= key %>: <%= value %>
+    <%- end -%>
+  <%- end -%>
+

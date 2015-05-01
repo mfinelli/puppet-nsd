@@ -4,6 +4,19 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 [puppet modules](https://forge.puppetlabs.com) it adheres to
 [semantic versioning](http://semver.org).
 
+## [Unreleased]
+
+This release adds the ability to add zones to the configuration file and to
+create authoritative zonefiles.
+
+### Additions
+
+* New `nsd::zone` defined type to add zones to the main configuration file. It
+  supports arbitrary zonefile paths or you can optionally specify the path to a
+  file and have puppet manage it as well.
+* New `nsd::zonefile` to create authoritative zones. By default it will also
+  add the zone into nsd.conf.
+
 ## [0.4.0] 2015-04-29
 
 This release adds in slave and master patters which are essentially just macros

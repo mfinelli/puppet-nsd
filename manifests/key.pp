@@ -20,10 +20,10 @@ define nsd::key (
     if $algorithm in $valid_algorithms {
       if $secret_file {
         file { "/etc/nsd/${name}.keyfile":
-          ensure => present,
-          mode   => '0640',
-          owner  => 0,
-          group  => 0,
+          ensure  => present,
+          mode    => '0640',
+          owner   => 0,
+          group   => 0,
           content => template($config_template),
         }
         ->

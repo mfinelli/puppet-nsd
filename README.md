@@ -19,10 +19,14 @@ files.
 
 ## Module Description
 
-This module is still under development, but it will be possible to configure
-all aspects of NSD including zone files and master/slave configurations.
+This module allows for the management of all aspects of the NSD configuration
+file, keys and zonefiles. It adds easy slave/master configuration but you can
+also use the module to create authoritative zonefiles and essentially have
+puppet become the master nameserver and all nameservers would be the slaves.
 
-So far it is possible to configure the nsd server and remote.
+The module only writes non-default options to the configuration file and allows
+you to set any option through the use of hashes instead of predefined variables,
+where appropriate.
 
 ## Setup
 
@@ -141,6 +145,63 @@ To create a slave pattern: (note that the `master_key` is just the key name)
 
 Now the pattern can be included in zones by the name "from_master_127.0.0.1".
 
+To create a zone with a file managed by puppet and using the slave pattern from
+above:
+
+```puppet
+::nsd::zone { 'example.com':
+  zonefile_manage => true,
+  zonefile        => 'puppet:///modules/nsd/example.com.zone',
+  options         => {
+    'include-pattern' => 'from_master_127.0.0.1'
+  }
+}
+```
+
+To create an authoritative zone and include it in the main configuration file
+with the master pattern from above:
+
+```puppet
+::nsd::zonefile { 'example.org':
+  serial_number => 2015050101,
+  admin_email   => 'admin@example.org',
+  nameservers   => ['ns1.example.org.', 'ns2.example.org.'],
+  mxservers     => {5 => 'mail1.example.org.', 10 => 'mail2.example.org.'},
+  records       => [
+    {'name' => 'ns1', 'type' => 'A', 'location' => '127.0.0.1'},
+    {'name' => 'ns2', 'type' => 'A', 'location' => '127.0.0.2'},
+    {'name' => '@', 'type' => 'A', 'location' => '123.123.123.123'},
+    {'name' => 'www', 'type' => 'CNAME' 'location' => '@'},
+  ],
+  'include-options' => {
+    'include-pattern' => 'to_slave_127.0.0.1'
+  },
+}
+```
+
+This would result in the following authoritative zone for example.org saved in
+`etc/nsd/example.org.zone`:
+
+```
+;; example.org authoritative zone managed by puppet
+
+$ORIGIN example.org.
+$TTL 86400
+
+@ IN SOA ns1.example.org. admin.example.org. ( 2015050101 28800 7200 864000 86400 )
+
+ NS ns1.example.org.
+ NS ns2.example.org.
+
+ MX 5 mail1.example.org.
+ MX 10 mail2.example.org.
+
+ ns1 A 127.0.0.1
+ ns2 A 127.0.0.2
+ @ A 123.123.123.123
+ www CNAME @
+```
+
 ## Reference
 
 ### Classes
@@ -164,6 +225,8 @@ Now the pattern can be included in zones by the name "from_master_127.0.0.1".
   master servers.
 * nsd::pattern::slave: a macro for the nsd::pattern type to ease creation of
   slave servers.
+* nsd::zone: adds zones and zonefiles.
+* nsd::zonefile: creates authoritative zonefiles.
 
 ### Parameters: `nsd`
 
@@ -374,6 +437,93 @@ it, but depending on your other servers you might want something like IXFR/UDP.
 #### `options`
 
 Any additional valid pattern options to set.
+
+### Parameters `nsd::zone`
+
+The following parameters are available in the nsd::zone defined type:
+
+#### `config`
+
+The config file to write the zone section. Inherits from nsd::params::config, so
+if you overwrite there you'll need to overwrite here as well.
+
+#### `config_template`
+
+The template to use for writing the zone section. Default value: 'nsd/zone.erb'
+
+#### `zonefile_manage`
+
+Whether to have puppet manage the zonefile. Default value: false
+
+#### `zonefile`
+
+If `zonefile_manage` is true then this should be a path to a file that puppet
+can serve. Otherwise it will enter the arbitrary name here as the zonefile value
+in nsd.conf.
+
+#### `options`
+
+Any additional valid zone options to set (e.g., "include-pattern").
+
+### Parameters `nsd::zonefile`
+
+The following parameters are available in the nsd::zonefile defined type:
+
+#### `include_in_config`
+
+Whether or not to include the zone in `nsd.conf`. Default value: true
+
+#### `include_options`
+
+Any additional valid zone options to set when including the zone in `nsd.conf`
+(e.g., "include-pattern").
+
+#### `serial_number`
+
+The serial number for the zone. Can be any valid integer but usually we use the
+form 'YYYYMMDDnn'.
+
+#### `admin_email`
+
+The admin email address for the zone. Should *not* have a period at the end, it
+will be automatically added in the template.
+
+#### `ttl`
+
+Value in seconds of the time to live. Should be less than three days. Default
+value: 86400 (1 day)
+
+#### `refresh`
+
+Value in seconds that a slave will try to refresh the zone. Recommended setting
+is between one hour and one day depending on how often your zone changes.
+Default value: 28800 (8 hours)
+
+#### `retry`
+
+Value in seconds that a slave will wait before retrying if they are unable to
+connect to the master. Recommended value is between five minutes and four hours.
+Default value: 7200 (2 hours)
+
+#### `expire`
+
+Value in seconds that the zone is valid for. Recommended value is between one
+week and four weeks. Default value is 864000 (10 days)
+
+#### `nameservers`
+
+An array of nameservers for this domain. N.B. that they need to end in a period.
+
+#### `mxservers`
+
+A hash of the mail servers for the domain. The priority is the key and the
+server is the value. The are automatically ordered. N.B. that the servers need
+to end in a period.
+
+#### `records`
+
+An array of hashes of the records that the zone should serve. Each hash needs to
+have three keys: name, type, and location.
 
 ## Limitations
 

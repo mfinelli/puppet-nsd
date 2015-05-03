@@ -1,0 +1,7 @@
+language: ruby
+script: "bundle exec rake lint && bundle exec rake rspec"
+rvm: 2.1.5
+notifications:
+  email: false
+env:
+  - PUPPET_VERSION=3.7.2

@@ -1,6 +1,6 @@
 {
   "name": "mfinelli-nsd",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "author": "mfinelli",
   "summary": "Manage NSD name server.",
   "license": "Apache-2.0",

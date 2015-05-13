@@ -11,7 +11,8 @@ This release adds real documentation to all manifest files.
 ### Additions
 
 * Description, parameters, examples, and license to manifests: init, config,
-  install, params, service, remote, key, and pattern.
+  install, params, service, remote, key, pattern, master pattern, and slave
+  pattern.
 
 ## [0.5.0] 2015-05-01
 

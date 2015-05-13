@@ -264,9 +264,9 @@ Valid options: 'present', 'latest', or a specific version number. Default value:
 Tells Puppet what NSD package to manage. Valid options: string. Default value:
 'nsd'
 
-#### `service_enable`
+#### `service_manage`
 
-Tells Puppet whether to enable the NSD service at boot. Valid options: 'true' or
+Tells Puppet whether to manage the NSD service. Valid options: 'true' or
 'false'. Default value: 'true'
 
 #### `service_ensure`
@@ -274,9 +274,9 @@ Tells Puppet whether to enable the NSD service at boot. Valid options: 'true' or
 Tells Puppet whether the NSD service should be running. Valid options: 'running'
 or 'stopped'. Default value: 'running'
 
-#### `service_manage`
+#### `service_enable`
 
-Tells Puppet whether to manage the NSD service. Valid options: 'true' or
+Tells Puppet whether to enable the NSD service at boot. Valid options: 'true' or
 'false'. Default value: 'true'
 
 #### `service_name`

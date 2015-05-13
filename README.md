@@ -538,8 +538,25 @@ for platforms other than Debian) please send fork the project at
 [GitHub](https://github.com/mfinelli/puppet-nsd) and send a pull request. New
 features belong in a feature branch named `feature/your-feature` and the pull
 request should be against the
-[develop](https://github.com/mfinelli/puppet-nsd/tree/develop) branch.
+[develop](https://github.com/mfinelli/puppet-nsd/tree/develop) branch. Please
+add your name below and to the authors section of any file that you modify.
 
 ## Authors
 
 * Mario Finelli
+
+## License
+
+Copyright 2015 Mario Finelli
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

@@ -1,4 +1,119 @@
-# Configure nsd remote.
+# == Class: nsd::remote
+#
+# This class configures the nsd remote.
+#
+# === Parameters
+#
+# [*config*]
+#   The configuration file into which to write the remote section. It inherits
+#   this value from nsd::params::config.
+#   Default value: '/etc/nsd/nsd.conf'
+#
+# [*config_template*]
+#   The template to use for writing the remote section.
+#   Default value: 'nsd/remote.erb'
+#
+# [*enable*]
+#   Whether to enable the remote or not. (N.B. that if you don't want the
+#   remote enabled it's usually better to simply not include this class in your
+#   manifest.) Valid options are true and false.
+#   Default value: true
+#
+# [*interface*]
+#   Which interfaces are listened to for control. Valid options are a string or
+#   an array of strings.
+#   Default value: localhost (127.0.0.1 and ::1)
+#
+# [*port*]
+#   Port number for remote control operations (uses TLS over TCP).
+#   Default value: 8952
+#
+# [*server_key_manage*]
+#   Whether or not to have puppet manage the server key file. Valid options are
+#   true and false.
+#   Default value: false
+#
+# [*server_key_file*]
+#   If server_key_manage is true then this should point to a source for the
+#   file that puppet will manage. Otherwise, it can be undefined or an
+#   arbitrary filename to use for the server-key-file. If undefined, then no
+#   value will be written to the configuration file.
+#   Default value: undefined
+#
+# [*server_cert_manage*]
+#   Whether or not to have puppet manage the server certificate file. Valid
+#   options are true and false.
+#   Default value: false
+#
+# [*server_cert_file*]
+#   If server_cert_manage is true then this should point to a source for the
+#   file that puppet will manage. Otherwise, it can be undefined or an
+#   arbitrary filename to use for the server-cert-file. If undefined, then no
+#   value will be written to the configuration file.
+#   Default value: undefined
+#
+# [*control_key_manage*]
+#   Whether or not to have puppet manage the control key file. Valid options
+#   are true and false.
+#   Default value: false
+#
+# [*control_key_file*]
+#   If control_key_manage is true then this should point to a source for the
+#   file that puppet will manage. Otherwise, it can be undefined or an
+#   arbitrary filename to use for the control-key-file. If undefined, then no
+#   value will be written to the configuration file.
+#   Default value: undefined
+#
+# [*control_cert_manage*]
+#   Whether or not to have puppet manage the control certificate file. Valid
+#   options are true and false.
+#   Default value: false
+#
+# [*control_cert_file*]
+#   If control_cert_manage is true then this should point to a source for the
+#   file that puppet will manage. Otherwise, it can be undefined or an
+#   arbitrary filename to use for the control-cert-file. If undefined, then no
+#   value will be written to the configuration file.
+#   Default value: undefined
+#
+# === Examples
+#
+# Enable the remote with defaults:
+#   include nsd::remote
+#
+# Use arbitrary filenames for key and certificate files:
+#   class { 'nsd::remote':
+#     server_key_file => '/etc/nsd/arbitrary_filename.key',
+#   }
+#
+# Puppet will manage key and certificate files:
+#   class { 'nsd::remote':
+#     server_key_manage  => true,
+#     server_key_file    => 'puppet:///modules/nsd/nsd_server.key'
+#     server_cert_manage => true,
+#     server_cert_file   => 'puppet:///modules/nsd/nsd_server.pem'
+#   }
+#
+# === Authors
+#
+# Mario Finelli <mario@finel.li>
+#
+# === Copyright
+#
+# Copyright 2015 Mario Finelli
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 class nsd::remote (
   $config              = undef,
   $config_template     = 'nsd/remote.erb',

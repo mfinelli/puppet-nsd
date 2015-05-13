@@ -4,6 +4,17 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 [puppet modules](https://forge.puppetlabs.com) it adheres to
 [semantic versioning](http://semver.org).
 
+## [0.5.1] 2015-05-13
+
+This release adds real documentation to all manifest files.
+
+### Additions
+
+* Description, parameters, examples, and license to manifests: init, config,
+  install, params, service, remote, key, pattern, master pattern, slave
+  pattern, zone, and zonefile.
+* Add author list and license to all of the template files.
+
 ## [0.5.0] 2015-05-01
 
 This release adds the ability to add zones to the configuration file and to
@@ -38,7 +49,7 @@ This release adds configuration and management of keys and patterns.
 
 * New `nsd::key` defined type which allows the creation of keys either directly
   in the configuration file or as separate files to be included in it.
-* New `nsd::pattern` defined type whi can create patterns. This type will be
+* New `nsd::pattern` defined type which can create patterns. This type will be
   extended to allow easy creation of slave/master setup, but it is also
   possible to create arbitrary patterns using the `options` parameter.
 

@@ -49,7 +49,7 @@ This release adds configuration and management of keys and patterns.
 
 * New `nsd::key` defined type which allows the creation of keys either directly
   in the configuration file or as separate files to be included in it.
-* New `nsd::pattern` defined type whi can create patterns. This type will be
+* New `nsd::pattern` defined type which can create patterns. This type will be
   extended to allow easy creation of slave/master setup, but it is also
   possible to create arbitrary patterns using the `options` parameter.
 

@@ -20,6 +20,7 @@
 #   section. The keys are the options and the values are their values. Valid
 #   options are any of the valid options in the 'server' section of the main
 #   configuration file.
+#   Default value: {}
 #
 # [*package_ensure*]
 #   Tells Puppet whether the NSD package should be installed, and what version.

@@ -7,7 +7,7 @@
   "source": "https://github.com/mfinelli/puppet-nsd",
   "project_page": "https://github.com/mfinelli/puppet-nsd",
   "issues_url": "https://github.com/mfinelli/puppet-nsd/issues",
-  "tags": ["nsd", "dns", "bind"],
+  "tags": ["nsd", "dns", "bind", "zonefile"],
   "operatingsystem_support": [
     {
       "operatingsystem": "Debian",

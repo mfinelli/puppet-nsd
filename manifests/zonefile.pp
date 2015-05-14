@@ -117,6 +117,25 @@ define nsd::zonefile (
   $records           = [],
   $admin_email       = undef,
 ) {
+  if $admin_email == undef {
+    fail('You must provide an admin email address.')
+  }
+  if $serial_number == undef {
+    fail('You must provide a serial number for this zone.')
+  }
+
+  # Fail if the admin email address ends in a full stop -- we do that.
+  if $admin_email =~ /\.$/ {
+    fail('The admin email address shouldn\'t end in a full stop.')
+  }
+
+  # Now fail a full email validation. If we did this first an unsuspecting user
+  # might not realize that the only error was a full stop in an otherwise valid
+  # email address.
+  unless $admin_email =~ /^[A-Za-z0-9]+@[a-z0-9]+\.[a-z]+$/ {
+    fail('Admin email address is invalid.')
+  }
+
   $zonefile_path = "/etc/nsd/${name}.zone"
   file { $zonefile_path:
     ensure  => present,

@@ -4,7 +4,7 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 [puppet modules](https://forge.puppetlabs.com) it adheres to
 [semantic versioning](http://semver.org).
 
-## [Unreleased]
+## [0.5.2] 2015-05-14
 
 This release adds rspec tests.
 

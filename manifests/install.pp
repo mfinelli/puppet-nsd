@@ -26,7 +26,7 @@
 #
 class nsd::install inherits nsd {
   package { 'nsd':
-    ensure => $package_ensure,
-    name   => $package_name,
+    ensure => $nsd::package_ensure,
+    name   => $nsd::package_name,
   }
 }

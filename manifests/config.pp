@@ -25,7 +25,7 @@
 # limitations under the License.
 #
 class nsd::config inherits nsd {
-  concat { $config:
+  concat { $nsd::config:
     ensure => present,
     owner  => 'root',
     group  => 'root',
@@ -34,7 +34,7 @@ class nsd::config inherits nsd {
 
   concat::fragment { 'nsd-server':
     order   => '01',
-    target  => $config,
-    content => template($config_template),
+    target  => $nsd::config,
+    content => template($nsd::config_template),
   }
 }

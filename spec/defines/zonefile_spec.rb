@@ -130,6 +130,190 @@ describe 'nsd::zonefile' do
         .with_content(/NS ns2\.example\.com\./)
     end
   end
+
+  context 'with time to live not an integer' do
+    let(:params) { {
+      :admin_email => 'admin@example.com',
+      :serial_number => 1,
+      :nameservers => ['ns1.example.com.'],
+      :ttl => 'ttl'
+    } }
+
+    it do
+      expect {
+        should contain_file('/etc/nsd/example.com.zone')
+      }.to raise_error(Puppet::Error,
+          /Expected first argument to be an Integer/)
+    end
+  end
+
+  context 'with time to live as a string integer' do
+    let(:params) { {
+      :admin_email => 'admin@example.com',
+      :serial_number => 1,
+      :nameservers => ['ns1.example.com.'],
+      :ttl => '1'
+    } }
+
+    it do
+      expect {
+        should contain_file('/etc/nsd/example.com.zone')
+      }.to raise_error(Puppet::Error, /Time to live must be an integer./)
+    end
+  end
+
+  context 'with time to live negative' do
+    let(:params) { {
+      :admin_email => 'admin@example.com',
+      :serial_number => 1,
+      :nameservers => ['ns1.example.com.'],
+      :ttl => -10
+    } }
+
+    it do
+      expect {
+        should contain_file('/etc/nsd/example.com.zone')
+      }.to raise_error(Puppet::Error, /Time to live must be positive./)
+    end
+  end
+
+  context 'with refresh not an integer' do
+    let(:params) { {
+      :admin_email => 'admin@example.com',
+      :serial_number => 1,
+      :nameservers => ['ns1.example.com.'],
+      :refresh => 'refresh'
+    } }
+
+    it do
+      expect {
+        should contain_file('/etc/nsd/example.com.zone')
+      }.to raise_error(Puppet::Error,
+          /Expected first argument to be an Integer/)
+    end
+  end
+
+  context 'with refresh as a string integer' do
+    let(:params) { {
+      :admin_email => 'admin@example.com',
+      :serial_number => 1,
+      :nameservers => ['ns1.example.com.'],
+      :refresh => '1'
+    } }
+
+    it do
+      expect {
+        should contain_file('/etc/nsd/example.com.zone')
+      }.to raise_error(Puppet::Error, /Refresh value must be an integer./)
+    end
+  end
+
+  context 'with refresh negative' do
+    let(:params) { {
+      :admin_email => 'admin@example.com',
+      :serial_number => 1,
+      :nameservers => ['ns1.example.com.'],
+      :refresh => -10
+    } }
+
+    it do
+      expect {
+        should contain_file('/etc/nsd/example.com.zone')
+      }.to raise_error(Puppet::Error, /Refresh value must be positive./)
+    end
+  end
+
+  context 'with retry not an integer' do
+    let(:params) { {
+      :admin_email => 'admin@example.com',
+      :serial_number => 1,
+      :nameservers => ['ns1.example.com.'],
+      :retry => 'retry'
+    } }
+
+    it do
+      expect {
+        should contain_file('/etc/nsd/example.com.zone')
+      }.to raise_error(Puppet::Error,
+          /Expected first argument to be an Integer/)
+    end
+  end
+
+  context 'with retry as a string integer' do
+    let(:params) { {
+      :admin_email => 'admin@example.com',
+      :serial_number => 1,
+      :nameservers => ['ns1.example.com.'],
+      :retry => '1'
+    } }
+
+    it do
+      expect {
+        should contain_file('/etc/nsd/example.com.zone')
+      }.to raise_error(Puppet::Error, /Retry value must be an integer./)
+    end
+  end
+
+  context 'with retry negative' do
+    let(:params) { {
+      :admin_email => 'admin@example.com',
+      :serial_number => 1,
+      :nameservers => ['ns1.example.com.'],
+      :retry => -10
+    } }
+
+    it do
+      expect {
+        should contain_file('/etc/nsd/example.com.zone')
+      }.to raise_error(Puppet::Error, /Retry value must be positive./)
+    end
+  end
+
+  context 'with expire not an integer' do
+    let(:params) { {
+      :admin_email => 'admin@example.com',
+      :serial_number => 1,
+      :nameservers => ['ns1.example.com.'],
+      :expire => 'expire'
+    } }
+
+    it do
+      expect {
+        should contain_file('/etc/nsd/example.com.zone')
+      }.to raise_error(Puppet::Error,
+          /Expected first argument to be an Integer/)
+    end
+  end
+
+  context 'with expire as a string integer' do
+    let(:params) { {
+      :admin_email => 'admin@example.com',
+      :serial_number => 1,
+      :nameservers => ['ns1.example.com.'],
+      :expire => '1'
+    } }
+
+    it do
+      expect {
+        should contain_file('/etc/nsd/example.com.zone')
+      }.to raise_error(Puppet::Error, /Expire value must be an integer./)
+    end
+  end
+
+  context 'with expire negative' do
+    let(:params) { {
+      :admin_email => 'admin@example.com',
+      :serial_number => 1,
+      :nameservers => ['ns1.example.com.'],
+      :expire => -10
+    } }
+
+    it do
+      expect {
+        should contain_file('/etc/nsd/example.com.zone')
+      }.to raise_error(Puppet::Error, /Expire value must be positive./)
+    end
+  end
 end
 
 at_exit { RSpec::Puppet::Coverage.report! }

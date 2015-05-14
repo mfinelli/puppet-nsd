@@ -136,6 +136,16 @@ define nsd::zonefile (
     fail('Admin email address is invalid.')
   }
 
+  validate_array($nameservers)
+  unless $nameservers.count >= 1 {
+    fail('You must specify at least one nameserver.')
+  }
+  $nameservers.each |String $nameserver| {
+    unless $nameserver =~ /\.$/ {
+      fail('All nameservers must end in a full stop.')
+    }
+  }
+
   $zonefile_path = "/etc/nsd/${name}.zone"
   file { $zonefile_path:
     ensure  => present,

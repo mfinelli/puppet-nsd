@@ -59,7 +59,7 @@ describe 'nsd::zonefile' do
     end
   end
 
-  context 'nameservers is not an array' do
+  context 'with nameservers not an array' do
     let(:params) { {
       :admin_email => 'admin@example.com',
       :serial_number => 1,
@@ -73,7 +73,7 @@ describe 'nsd::zonefile' do
     end
   end
 
-  context 'no nameservers' do
+  context 'with no nameservers' do
     let(:params) { {
       :admin_email => 'admin@example.com',
       :serial_number => 1,
@@ -87,7 +87,7 @@ describe 'nsd::zonefile' do
     end
   end
 
-  context 'first nameserver doesn\'t end in a full stop' do
+  context 'with first nameserver not ending in a full stop' do
     let(:params) { {
       :admin_email => 'admin@example.com',
       :serial_number => 1,
@@ -102,7 +102,7 @@ describe 'nsd::zonefile' do
     end
   end
 
-  context 'second nameserver doesn\'t end in a full stop' do
+  context 'with second nameserver not ending in a full stop' do
     let(:params) { {
       :admin_email => 'admin@example.com',
       :serial_number => 1,

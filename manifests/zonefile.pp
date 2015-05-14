@@ -117,6 +117,7 @@ define nsd::zonefile (
   $records           = [],
   $admin_email       = undef,
 ) {
+  # Enforce required parameters.
   if $admin_email == undef {
     fail('You must provide an admin email address.')
   }
@@ -136,6 +137,8 @@ define nsd::zonefile (
     fail('Admin email address is invalid.')
   }
 
+  # Make sure that nameservers is an array with at least one entry and all
+  # values ending with a full stop.
   validate_array($nameservers)
   unless $nameservers.count >= 1 {
     fail('You must specify at least one nameserver.')

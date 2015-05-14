@@ -4,6 +4,14 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 [puppet modules](https://forge.puppetlabs.com) it adheres to
 [semantic versioning](http://semver.org).
 
+## [Unreleased]
+
+This release adds rspec tests.
+
+### Changes
+
+* Fix all lint issues (mostly top-scope warnings).
+
 ## [0.5.1] 2015-05-13
 
 This release adds real documentation to all manifest files.

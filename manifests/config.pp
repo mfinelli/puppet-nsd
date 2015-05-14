@@ -27,8 +27,8 @@
 class nsd::config inherits nsd {
   concat { $config:
     ensure => present,
-    owner  => 0,
-    group  => 0,
+    owner  => 'root',
+    group  => 'root',
     mode   => '0644',
   }
 

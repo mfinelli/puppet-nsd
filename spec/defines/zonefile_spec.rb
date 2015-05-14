@@ -116,6 +116,20 @@ describe 'nsd::zonefile' do
           /All nameservers must end in a full stop./)
     end
   end
+
+  context 'with two valid nameservers' do
+    let(:params) { {
+      :admin_email => 'admin@example.com',
+      :serial_number => 1,
+      :nameservers => ['ns1.example.com.', 'ns2.example.com.']
+    } }
+
+    it do
+      should contain_file('/etc/nsd/example.com.zone')
+        .with_content(/NS ns1\.example\.com\./)
+        .with_content(/NS ns2\.example\.com\./)
+    end
+  end
 end
 
 at_exit { RSpec::Puppet::Coverage.report! }

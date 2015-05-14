@@ -10,6 +10,8 @@ This release adds rspec tests.
 
 ### Changes
 
+* Update Rakefile and add rspec options for [travis](https://travis-ci.org)
+  continuous integration builds.
 * Fix all lint issues (mostly top-scope warnings).
 
 ## [0.5.1] 2015-05-13

@@ -540,6 +540,8 @@ features belong in a feature branch named `feature/your-feature` and the pull
 request should be against the
 [develop](https://github.com/mfinelli/puppet-nsd/tree/develop) branch. Please
 add your name below and to the authors section of any file that you modify.
+While not required, it would be nice if you wrote test cases for any
+functionality that you add.
 
 ## Authors
 

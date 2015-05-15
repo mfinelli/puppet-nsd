@@ -140,7 +140,7 @@ define nsd::zonefile (
   # Make sure that nameservers is an array with at least one entry and all
   # values ending with a full stop.
   validate_array($nameservers)
-  unless $nameservers.count >= 1 {
+  unless count($nameservers) >= 1 {
     fail('You must specify at least one nameserver.')
   }
   $nameservers.each |String $nameserver| {

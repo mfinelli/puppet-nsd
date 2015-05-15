@@ -4,4 +4,4 @@ rvm: 2.1.5
 notifications:
   email: false
 env:
-  - PUPPET_VERSION=3.7.2
+  - PUPPET_VERSION=3.7.2 FUTURE_PARSER=yes

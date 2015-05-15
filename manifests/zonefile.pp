@@ -143,7 +143,7 @@ define nsd::zonefile (
   unless count($nameservers) >= 1 {
     fail('You must specify at least one nameserver.')
   }
-  each($nameservers) |String $nameserver| {
+  $nameservers.each |String $nameserver| {
     unless $nameserver =~ /\.$/ {
       fail('All nameservers must end in a full stop.')
     }

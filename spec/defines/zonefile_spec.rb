@@ -1,55 +1,59 @@
 require 'spec_helper'
 
 describe 'nsd::zonefile' do
+
   let(:title) { 'example.com' }
   let(:facts) { {:concat_basedir => '/tmp'} }
 
   context 'with sane defaults' do
     let(:params) { {
-      :admin_email => 'admin@example.com',
-      :serial_number => 1,
-      :nameservers => ['ns1.example.com.']
+        :admin_email => 'admin@example.com',
+        :serial_number => 1,
+        :nameservers => ['ns1.example.com.']
     } }
 
     it { should contain_nsd__zonefile('example.com') }
 
     it do
-      should contain_file('/etc/nsd/example.com.zone').with({
-        'ensure' => 'present',
-        'owner'  => 0,
-        'group'  => 0,
-        'mode'   => '0644',
-      })
+      should contain_file('/etc/nsd/example.com.zone')
+                 .with(
+                     {
+                         'ensure' => 'present',
+                         'owner' => 0,
+                         'group' => 0,
+                         'mode' => '0644',
+                     }
+                 )
 
       should contain_file('/etc/nsd/example.com.zone')
-        .with_content(/\$ORIGIN example\.com\./)
+                 .with_content(/\$ORIGIN example\.com\./)
       should contain_file('/etc/nsd/example.com.zone')
-        .with_content(/admin\.example\.com\./)
+                 .with_content(/admin\.example\.com\./)
       should contain_file('/etc/nsd/example.com.zone')
-        .with_content(/@ IN SOA ns1\.example\.com\./)
+                 .with_content(/@ IN SOA ns1\.example\.com\./)
     end
   end
 
   context 'with email address ending in period' do
     let(:params) { {
-      :admin_email => 'admin@example.com.',
-      :serial_number => 1,
-      :nameservers => ['ns1.example.com.']
+        :admin_email => 'admin@example.com.',
+        :serial_number => 1,
+        :nameservers => ['ns1.example.com.']
     } }
 
     it do
       expect {
         should contain_file('/etc/nsd/example.com.zone')
       }.to raise_error(Puppet::Error,
-        /The admin email address shouldn't end in a full stop\./)
+                       /The admin email address shouldn't end in a full stop/)
     end
   end
 
   context 'with invalid email address' do
     let(:params) { {
-      :admin_email => 'not.an.email.address',
-      :serial_number => 1,
-      :nameservers => ['ns1.example.com.']
+        :admin_email => 'not.an.email.address',
+        :serial_number => 1,
+        :nameservers => ['ns1.example.com.']
     } }
 
     it do
@@ -61,9 +65,9 @@ describe 'nsd::zonefile' do
 
   context 'with nameservers not an array' do
     let(:params) { {
-      :admin_email => 'admin@example.com',
-      :serial_number => 1,
-      :nameservers => 'ns1.example.com.'
+        :admin_email => 'admin@example.com',
+        :serial_number => 1,
+        :nameservers => 'ns1.example.com.'
     } }
 
     it do
@@ -75,15 +79,15 @@ describe 'nsd::zonefile' do
 
   context 'with no nameservers' do
     let(:params) { {
-      :admin_email => 'admin@example.com',
-      :serial_number => 1,
+        :admin_email => 'admin@example.com',
+        :serial_number => 1,
     } }
 
     it do
       expect {
         should contain_file('/etc/nsd/example.com.zone')
       }.to raise_error(Puppet::Error,
-          /You must specify at least one nameserver./)
+                       /You must specify at least one nameserver./)
     end
   end
 
@@ -123,31 +127,31 @@ describe 'nsd::zonefile' do
 
   context 'with two valid nameservers' do
     let(:params) { {
-      :admin_email => 'admin@example.com',
-      :serial_number => 1,
-      :nameservers => ['ns1.example.com.', 'ns2.example.com.']
+        :admin_email => 'admin@example.com',
+        :serial_number => 1,
+        :nameservers => ['ns1.example.com.', 'ns2.example.com.']
     } }
 
     it do
       should contain_file('/etc/nsd/example.com.zone')
-        .with_content(/NS ns1\.example\.com\./)
-        .with_content(/NS ns2\.example\.com\./)
+                 .with_content(/NS ns1\.example\.com\./)
+                 .with_content(/NS ns2\.example\.com\./)
     end
   end
 
   context 'with time to live not an integer' do
     let(:params) { {
-      :admin_email => 'admin@example.com',
-      :serial_number => 1,
-      :nameservers => ['ns1.example.com.'],
-      :ttl => 'ttl'
+        :admin_email => 'admin@example.com',
+        :serial_number => 1,
+        :nameservers => ['ns1.example.com.'],
+        :ttl => 'ttl'
     } }
 
     it do
       expect {
         should contain_file('/etc/nsd/example.com.zone')
       }.to raise_error(Puppet::Error,
-          /Expected first argument to be an Integer/)
+                       /Expected first argument to be an Integer/)
     end
   end
 
@@ -172,10 +176,10 @@ describe 'nsd::zonefile' do
 
   context 'with time to live negative' do
     let(:params) { {
-      :admin_email => 'admin@example.com',
-      :serial_number => 1,
-      :nameservers => ['ns1.example.com.'],
-      :ttl => -10
+        :admin_email => 'admin@example.com',
+        :serial_number => 1,
+        :nameservers => ['ns1.example.com.'],
+        :ttl => -10
     } }
 
     it do
@@ -187,17 +191,17 @@ describe 'nsd::zonefile' do
 
   context 'with refresh not an integer' do
     let(:params) { {
-      :admin_email => 'admin@example.com',
-      :serial_number => 1,
-      :nameservers => ['ns1.example.com.'],
-      :refresh => 'refresh'
+        :admin_email => 'admin@example.com',
+        :serial_number => 1,
+        :nameservers => ['ns1.example.com.'],
+        :refresh => 'refresh'
     } }
 
     it do
       expect {
         should contain_file('/etc/nsd/example.com.zone')
       }.to raise_error(Puppet::Error,
-          /Expected first argument to be an Integer/)
+                       /Expected first argument to be an Integer/)
     end
   end
 
@@ -222,10 +226,10 @@ describe 'nsd::zonefile' do
 
   context 'with refresh negative' do
     let(:params) { {
-      :admin_email => 'admin@example.com',
-      :serial_number => 1,
-      :nameservers => ['ns1.example.com.'],
-      :refresh => -10
+        :admin_email => 'admin@example.com',
+        :serial_number => 1,
+        :nameservers => ['ns1.example.com.'],
+        :refresh => -10
     } }
 
     it do
@@ -237,17 +241,17 @@ describe 'nsd::zonefile' do
 
   context 'with retry not an integer' do
     let(:params) { {
-      :admin_email => 'admin@example.com',
-      :serial_number => 1,
-      :nameservers => ['ns1.example.com.'],
-      :retry => 'retry'
+        :admin_email => 'admin@example.com',
+        :serial_number => 1,
+        :nameservers => ['ns1.example.com.'],
+        :retry => 'retry'
     } }
 
     it do
       expect {
         should contain_file('/etc/nsd/example.com.zone')
       }.to raise_error(Puppet::Error,
-          /Expected first argument to be an Integer/)
+                       /Expected first argument to be an Integer/)
     end
   end
 
@@ -272,10 +276,10 @@ describe 'nsd::zonefile' do
 
   context 'with retry negative' do
     let(:params) { {
-      :admin_email => 'admin@example.com',
-      :serial_number => 1,
-      :nameservers => ['ns1.example.com.'],
-      :retry => -10
+        :admin_email => 'admin@example.com',
+        :serial_number => 1,
+        :nameservers => ['ns1.example.com.'],
+        :retry => -10
     } }
 
     it do
@@ -287,17 +291,17 @@ describe 'nsd::zonefile' do
 
   context 'with expire not an integer' do
     let(:params) { {
-      :admin_email => 'admin@example.com',
-      :serial_number => 1,
-      :nameservers => ['ns1.example.com.'],
-      :expire => 'expire'
+        :admin_email => 'admin@example.com',
+        :serial_number => 1,
+        :nameservers => ['ns1.example.com.'],
+        :expire => 'expire'
     } }
 
     it do
       expect {
         should contain_file('/etc/nsd/example.com.zone')
       }.to raise_error(Puppet::Error,
-          /Expected first argument to be an Integer/)
+                       /Expected first argument to be an Integer/)
     end
   end
 
@@ -322,10 +326,10 @@ describe 'nsd::zonefile' do
 
   context 'with expire negative' do
     let(:params) { {
-      :admin_email => 'admin@example.com',
-      :serial_number => 1,
-      :nameservers => ['ns1.example.com.'],
-      :expire => -10
+        :admin_email => 'admin@example.com',
+        :serial_number => 1,
+        :nameservers => ['ns1.example.com.'],
+        :expire => -10
     } }
 
     it do

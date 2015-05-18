@@ -106,14 +106,14 @@
 #
 define nsd::zonefile (
   $include_in_config = true,
-  $include_options   = {},
+  $include_options   = { },
   $serial_number     = undef,
   $ttl               = 86400,
   $refresh           = 28800,
   $retry             = 7200,
   $expire            = 864000,
   $nameservers       = [],
-  $mxservers         = {},
+  $mxservers         = { },
   $records           = [],
   $admin_email       = undef,
 ) {

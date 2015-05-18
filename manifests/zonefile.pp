@@ -143,11 +143,12 @@ define nsd::zonefile (
   unless count($nameservers) >= 1 {
     fail('You must specify at least one nameserver.')
   }
-  $nameservers.each |String $nameserver| {
-    unless $nameserver =~ /\.$/ {
-      fail('All nameservers must end in a full stop.')
-    }
-  }
+  # Save this for a future version of puppet:
+  # $nameservers.each |String $nameserver| {
+  #   unless $nameserver =~ /\.$/ {
+  #     fail('All nameservers must end in a full stop.')
+  #   }
+  # }
 
   # Make sure that all of our time variables are positive integers.
   validate_integer($ttl)

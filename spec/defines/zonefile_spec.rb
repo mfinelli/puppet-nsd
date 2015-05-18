@@ -152,17 +152,21 @@ describe 'nsd::zonefile' do
   end
 
   context 'with time to live as a string integer' do
-    let(:params) { {
-      :admin_email => 'admin@example.com',
-      :serial_number => 1,
-      :nameservers => ['ns1.example.com.'],
-      :ttl => '1'
-    } }
+    if (ENV.key?('PUPPET_VERSION') and ENV['PUPPET_VERSION'].to_f >= 4.0) or
+        (ENV.key?('FUTURE_PARSER') and ENV['FUTURE_PARSER'] == 'yes')
+      let(:params) { {
+          :admin_email => 'admin@example.com',
+          :serial_number => 1,
+          :nameservers => ['ns1.example.com.'],
+          :ttl => '1'
+      } }
 
-    it do
-      expect {
-        should contain_file('/etc/nsd/example.com.zone')
-      }.to raise_error(Puppet::Error, /Time to live must be an integer./)
+      it do
+        expect {
+          should contain_file('/etc/nsd/example.com.zone')
+        }.to raise_error(Puppet::Error,
+                         /A String is not comparable to a non String/)
+      end
     end
   end
 
@@ -198,17 +202,21 @@ describe 'nsd::zonefile' do
   end
 
   context 'with refresh as a string integer' do
-    let(:params) { {
-      :admin_email => 'admin@example.com',
-      :serial_number => 1,
-      :nameservers => ['ns1.example.com.'],
-      :refresh => '1'
-    } }
+    if (ENV.key?('PUPPET_VERSION') and ENV['PUPPET_VERSION'].to_f >= 4.0) or
+        (ENV.key?('FUTURE_PARSER') and ENV['FUTURE_PARSER'] == 'yes')
+      let(:params) { {
+          :admin_email => 'admin@example.com',
+          :serial_number => 1,
+          :nameservers => ['ns1.example.com.'],
+          :refresh => '1'
+      } }
 
-    it do
-      expect {
-        should contain_file('/etc/nsd/example.com.zone')
-      }.to raise_error(Puppet::Error, /Refresh value must be an integer./)
+      it do
+        expect {
+          should contain_file('/etc/nsd/example.com.zone')
+        }.to raise_error(Puppet::Error,
+                         /A String is not comparable to a non String/)
+      end
     end
   end
 
@@ -244,17 +252,21 @@ describe 'nsd::zonefile' do
   end
 
   context 'with retry as a string integer' do
-    let(:params) { {
-      :admin_email => 'admin@example.com',
-      :serial_number => 1,
-      :nameservers => ['ns1.example.com.'],
-      :retry => '1'
-    } }
+    if (ENV.key?('PUPPET_VERSION') and ENV['PUPPET_VERSION'].to_f >= 4.0) or
+        (ENV.key?('FUTURE_PARSER') and ENV['FUTURE_PARSER'] == 'yes')
+      let(:params) { {
+          :admin_email => 'admin@example.com',
+          :serial_number => 1,
+          :nameservers => ['ns1.example.com.'],
+          :retry => '1'
+      } }
 
-    it do
-      expect {
-        should contain_file('/etc/nsd/example.com.zone')
-      }.to raise_error(Puppet::Error, /Retry value must be an integer./)
+      it do
+        expect {
+          should contain_file('/etc/nsd/example.com.zone')
+        }.to raise_error(Puppet::Error,
+                         /A String is not comparable to a non String/)
+      end
     end
   end
 
@@ -290,17 +302,21 @@ describe 'nsd::zonefile' do
   end
 
   context 'with expire as a string integer' do
-    let(:params) { {
-      :admin_email => 'admin@example.com',
-      :serial_number => 1,
-      :nameservers => ['ns1.example.com.'],
-      :expire => '1'
-    } }
+    if (ENV.key?('PUPPET_VERSION') and ENV['PUPPET_VERSION'].to_f >= 4.0) or
+        (ENV.key?('FUTURE_PARSER') and ENV['FUTURE_PARSER'] == 'yes')
+      let(:params) { {
+          :admin_email => 'admin@example.com',
+          :serial_number => 1,
+          :nameservers => ['ns1.example.com.'],
+          :expire => '1'
+      } }
 
-    it do
-      expect {
-        should contain_file('/etc/nsd/example.com.zone')
-      }.to raise_error(Puppet::Error, /Expire value must be an integer./)
+      it do
+        expect {
+          should contain_file('/etc/nsd/example.com.zone')
+        }.to raise_error(Puppet::Error,
+                         /A String is not comparable to a non String/)
+      end
     end
   end
 

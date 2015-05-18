@@ -156,27 +156,15 @@ define nsd::zonefile (
   validate_integer($retry)
   validate_integer($expire)
 
-  # validate_integer allows arrays of Integers which we aren't interested in.
-  unless type_of($ttl) <= Integer {
-    fail('Time to live must be an integer.')
-  }
+  # Make sure that all values are positive.
   if $ttl < 0 {
     fail('Time to live must be positive.')
-  }
-  unless type_of($refresh) <= Integer {
-    fail('Refresh value must be an integer.')
   }
   if $refresh < 0 {
     fail('Refresh value must be positive.')
   }
-  unless type_of($retry) <= Integer {
-    fail('Retry value must be an integer.')
-  }
   if $retry < 0 {
     fail('Retry value must be positive.')
-  }
-  unless type_of($expire) <= Integer {
-    fail('Expire value must be an integer.')
   }
   if $expire < 0 {
     fail('Expire value must be positive.')

@@ -6,3 +6,5 @@ describe 'nsd' do
     it { should contain_class('nsd') }
   end
 end
+
+at_exit { RSpec::Puppet::Coverage.report! }

@@ -339,5 +339,3 @@ describe 'nsd::zonefile' do
     end
   end
 end
-
-at_exit { RSpec::Puppet::Coverage.report! }

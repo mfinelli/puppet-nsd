@@ -1,7 +1,10 @@
 language: ruby
 script: "bundle exec rake validate && bundle exec rake lint && bundle exec rake spec"
-rvm: 2.1.5
+rvm:
+  - 2.1.5
 notifications:
   email: false
 env:
   - PUPPET_VERSION=3.7.2
+  - PUPPET_VERSION=3.7.5 FUTURE_PARSER=yes
+  - PUPPET_VERSION=4.0.0

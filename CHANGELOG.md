@@ -4,6 +4,16 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 [puppet modules](https://forge.puppetlabs.com) it adheres to
 [semantic versioning](http://semver.org).
 
+## [Unreleased]
+
+This release adds tests for zonefiles.
+
+### Additions
+
+* Rspec tests for zonefiles.
+* Add validations for zonefiles - try to help write zonefiles by enforcing
+  certain restrictions on the values that can be used.
+
 ## [0.5.2] 2015-05-14
 
 This release adds rspec tests.

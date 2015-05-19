@@ -136,6 +136,12 @@ class nsd::remote (
     $config_file = $config
   }
 
+  if is_array($interface){
+    validate_ip_address_array($interface)
+  } else {
+    validate_ip_address_array(["${interface}"])
+  }
+
   if $server_key_manage {
     if $server_key_file == undef {
       fail('You must specify a source to manage the server key.')

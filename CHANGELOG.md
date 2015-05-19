@@ -11,6 +11,8 @@ This release adds tests for zonefiles.
 ### Additions
 
 * Rspec tests for zonefiles.
+* Add validations for zonefiles - try to help write zonefiles by enforcing
+  certain restrictions on the values that can be used.
 
 ## [0.5.2] 2015-05-14
 

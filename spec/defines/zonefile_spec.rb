@@ -428,4 +428,22 @@ describe 'nsd::zonefile' do
                  .without_content(/MX/)
     end
   end
+
+  context 'with records' do
+    let(:params) { {
+        :admin_email => 'admin@example.com',
+        :serial_number => 1,
+        :nameservers => ['ns1.example.com.'],
+        :records => [
+            {'name' => '@', 'type' => 'A', 'location' => '127.0.0.1'},
+            {'name' => 'www', 'type' => 'CNAME', 'location' => '@'}
+        ]
+    } }
+
+    it do
+      should contain_file('/etc/nsd/example.com.zone')
+                 .with_content(/@ A 127\.0\.0\.1/)
+                 .with_content(/www CNAME @/)
+    end
+  end
 end

@@ -49,7 +49,6 @@ module Puppet::Parser::Functions
     validate_ip_address_array(['not-an-address'])
 
   ENDHEREDOC
-
   ) do |args|
 
     require 'ipaddr'
@@ -85,7 +84,7 @@ module Puppet::Parser::Functions
           raise Puppet::ParseError, error_msg
         end
       end
-
     end
+
   end
 end

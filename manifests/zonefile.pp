@@ -106,17 +106,70 @@
 #
 define nsd::zonefile (
   $include_in_config = true,
-  $include_options   = {},
+  $include_options   = { },
   $serial_number     = undef,
   $ttl               = 86400,
   $refresh           = 28800,
   $retry             = 7200,
   $expire            = 864000,
   $nameservers       = [],
-  $mxservers         = {},
+  $mxservers         = { },
   $records           = [],
   $admin_email       = undef,
 ) {
+  # Enforce required parameters.
+  if $admin_email == undef {
+    fail('You must provide an admin email address.')
+  }
+  if $serial_number == undef {
+    fail('You must provide a serial number for this zone.')
+  }
+
+  # Fail if the admin email address ends in a full stop -- we do that.
+  if $admin_email =~ /\.$/ {
+    fail('The admin email address shouldn\'t end in a full stop.')
+  }
+
+  # Now fail a full email validation. If we did this first an unsuspecting user
+  # might not realize that the only error was a full stop in an otherwise valid
+  # email address.
+  unless $admin_email =~ /^[A-Za-z0-9]+@[a-z0-9]+\.[a-z]+$/ {
+    fail('Admin email address is invalid.')
+  }
+
+  # Make sure that nameservers is an array with at least one entry and all
+  # values ending with a full stop.
+  validate_array($nameservers)
+  unless count($nameservers) >= 1 {
+    fail('You must specify at least one nameserver.')
+  }
+  # Save this for a future version of puppet:
+  # $nameservers.each |String $nameserver| {
+  #   unless $nameserver =~ /\.$/ {
+  #     fail('All nameservers must end in a full stop.')
+  #   }
+  # }
+
+  # Make sure that all of our time variables are positive integers.
+  validate_integer($ttl)
+  validate_integer($refresh)
+  validate_integer($retry)
+  validate_integer($expire)
+
+  # Make sure that all values are positive.
+  if $ttl < 0 {
+    fail('Time to live must be positive.')
+  }
+  if $refresh < 0 {
+    fail('Refresh value must be positive.')
+  }
+  if $retry < 0 {
+    fail('Retry value must be positive.')
+  }
+  if $expire < 0 {
+    fail('Expire value must be positive.')
+  }
+
   $zonefile_path = "/etc/nsd/${name}.zone"
   file { $zonefile_path:
     ensure  => present,

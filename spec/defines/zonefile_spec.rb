@@ -55,6 +55,10 @@ describe 'nsd::zonefile' do
                  .with_content(/admin\.example\.com\./)
       should contain_file('/etc/nsd/example.com.zone')
                  .with_content(/@ IN SOA ns1\.example\.com\./)
+      should contain_file('/etc/nsd/example.com.zone')
+                 .with_content(/\$TTL 86400/)
+      should contain_file('/etc/nsd/example.com.zone')
+                 .with_content(/\( 1 28800 7200 864000 86400 \)/)
     end
   end
 
@@ -360,6 +364,24 @@ describe 'nsd::zonefile' do
       expect {
         should contain_file('/etc/nsd/example.com.zone')
       }.to raise_error(Puppet::Error, /Expire value must be positive./)
+    end
+  end
+
+  context 'with non-default time values' do
+    let(:params) { {
+        :admin_email => 'admin@example.com',
+        :serial_number => 2015,
+        :nameservers => ['ns1.example.com.'],
+        :ttl => 100,
+        :refresh => 115,
+        :retry => 120,
+        :expire => 130
+    } }
+
+    it do
+      should contain_file('/etc/nsd/example.com.zone')
+                 .with_content(/\( 2015 115 120 130 100 \)/)
+                 .with_content(/\$TTL 100/)
     end
   end
 end

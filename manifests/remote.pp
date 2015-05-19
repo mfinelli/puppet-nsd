@@ -142,6 +142,14 @@ class nsd::remote (
     validate_ip_address_array([$interface])
   }
 
+  validate_bool($enable)
+  validate_integer($port)
+
+  validate_bool($server_key_manage)
+  validate_bool($server_cert_manage)
+  validate_bool($control_key_manage)
+  validate_bool($control_cert_manage)
+
   if $server_key_manage {
     if $server_key_file == undef {
       fail('You must specify a source to manage the server key.')

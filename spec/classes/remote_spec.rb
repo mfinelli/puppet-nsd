@@ -73,4 +73,88 @@ describe 'nsd::remote' do
                        /"not\.an\.ip\.addr" is not a valid IP address/)
     end
   end
+
+  context 'with non-integer port' do
+    let(:params) { {
+        :port => 'port'
+    } }
+
+    it do
+      expect {
+        should contain_concat__fragment('nsd-remote')
+      }.to raise_error(Puppet::Error,
+                       /Expected first argument to be an Integer/)
+    end
+  end
+
+  context 'with remote explicitly disabled' do
+    let(:params) { {
+        :enable => false
+    } }
+
+    it do
+      should contain_concat__fragment('nsd-remote')
+                 .without_content(/remote\-control:/)
+    end
+  end
+
+  context 'with enable not a boolean' do
+    let(:params) { {
+        :enable => 'no'
+    } }
+
+    it do
+      expect {
+        should contain_concat__fragment('nsd-remote')
+      }.to raise_error(Puppet::Error, /"no" is not a boolean/)
+    end
+  end
+
+  context 'with server key manage not a boolean' do
+    let(:params) { {
+        :server_key_manage => 'no'
+    } }
+
+    it do
+      expect {
+        should contain_concat__fragment('nsd-remote')
+      }.to raise_error(Puppet::Error, /"no" is not a boolean/)
+    end
+  end
+
+  context 'with server cert manage not a boolean' do
+    let(:params) { {
+        :server_cert_manage => 'no'
+    } }
+
+    it do
+      expect {
+        should contain_concat__fragment('nsd-remote')
+      }.to raise_error(Puppet::Error, /"no" is not a boolean/)
+    end
+  end
+
+  context 'with control key manage not a boolean' do
+    let(:params) { {
+        :control_key_manage => 'no'
+    } }
+
+    it do
+      expect {
+        should contain_concat__fragment('nsd-remote')
+      }.to raise_error(Puppet::Error, /"no" is not a boolean/)
+    end
+  end
+
+  context 'with control cert manage not a boolean' do
+    let(:params) { {
+        :control_cert_manage => 'no'
+    } }
+
+    it do
+      expect {
+        should contain_concat__fragment('nsd-remote')
+      }.to raise_error(Puppet::Error, /"no" is not a boolean/)
+    end
+  end
 end

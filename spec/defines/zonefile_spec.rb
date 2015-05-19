@@ -384,4 +384,48 @@ describe 'nsd::zonefile' do
                  .with_content(/\$TTL 100/)
     end
   end
+
+  context 'with sane mx servers' do
+    let(:params) { {
+        :admin_email => 'admin@example.com',
+        :serial_number => 1,
+        :nameservers => ['ns1.example.com.'],
+        :mxservers => {10 => 'mx1.example.com.', 20 => 'mx2.example.com.'}
+    } }
+
+    it do
+      contents = / MX 10 mx1\.example\.com\.\n MX 20 mx2\.example\.com\./
+      should contain_file('/etc/nsd/example.com.zone')
+                 .with_content(contents)
+    end
+  end
+
+  context 'with mx servers out of order' do
+    let(:params) { {
+        :admin_email => 'admin@example.com',
+        :serial_number => 1,
+        :nameservers => ['ns1.example.com.'],
+        :mxservers => {20 => 'mx1.example.com.', 10 => 'mx2.example.com.'}
+    } }
+
+    it do
+      contents = / MX 10 mx2\.example\.com\.\n MX 20 mx1\.example\.com\./
+      should contain_file('/etc/nsd/example.com.zone')
+                 .with_content(contents)
+    end
+  end
+
+  context 'without mx servers' do
+    let(:params) { {
+        :admin_email => 'admin@example.com',
+        :serial_number => 1,
+        :nameservers => ['ns1.example.com.'],
+        :mxservers => {}
+    } }
+
+    it do
+      should contain_file('/etc/nsd/example.com.zone')
+                 .without_content(/MX/)
+    end
+  end
 end

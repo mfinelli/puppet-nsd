@@ -136,10 +136,10 @@ class nsd::remote (
     $config_file = $config
   }
 
-  if is_array($interface){
+  if is_array($interface) {
     validate_ip_address_array($interface)
   } else {
-    validate_ip_address_array(["${interface}"])
+    validate_ip_address_array([$interface])
   }
 
   if $server_key_manage {

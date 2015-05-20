@@ -157,4 +157,56 @@ describe 'nsd::remote' do
       }.to raise_error(Puppet::Error, /"no" is not a boolean/)
     end
   end
+
+  context 'with server key manage true and file undefined' do
+    let(:params) { {
+        :server_key_manage => true
+    } }
+
+    it do
+      expect {
+        should contain_concat__fragment('nsd-remote')
+      }.to raise_error(Puppet::Error,
+                       /You must specify a source to manage the server key/)
+    end
+  end
+
+  context 'with server cert manage true and file undefined' do
+    let(:params) { {
+        :server_cert_manage => true
+    } }
+
+    it do
+      expect {
+        should contain_concat__fragment('nsd-remote')
+      }.to raise_error(Puppet::Error,
+                       /You must specify a source to manage the server cert/)
+    end
+  end
+
+  context 'with control key manage true and file undefined' do
+    let(:params) { {
+        :control_key_manage => true
+    } }
+
+    it do
+      expect {
+        should contain_concat__fragment('nsd-remote')
+      }.to raise_error(Puppet::Error,
+                       /You must specify a source to manage the control key/)
+    end
+  end
+
+  context 'with control cert manage true and file undefined' do
+    let(:params) { {
+        :control_cert_manage => true
+    } }
+
+    it do
+      expect {
+        should contain_concat__fragment('nsd-remote')
+      }.to raise_error(Puppet::Error,
+                       /You must specify a source to manage the control cert/)
+    end
+  end
 end

@@ -6,12 +6,14 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 
 ## [Unreleased]
 
-This release adds rspec tests for nsd remote.
+This release adds initial acceptance testing with beaker and rspec tests for
+nsd remote.
 
 ### Additions
 
 * Rspec tests for `nsd::remote`.
 * Custom function to validate an array of IP addresses.
+* Acceptance tests for `nsd::remote`
 
 ## [0.5.3] 2015-05-18
 

@@ -136,17 +136,33 @@ class nsd::remote (
     $config_file = $config
   }
 
+  if is_array($interface) {
+    validate_ip_address_array($interface)
+  } else {
+    validate_ip_address_array([$interface])
+  }
+
+  validate_bool($enable)
+  validate_integer($port)
+
+  validate_bool($server_key_manage)
+  validate_bool($server_cert_manage)
+  validate_bool($control_key_manage)
+  validate_bool($control_cert_manage)
+
   if $server_key_manage {
     if $server_key_file == undef {
       fail('You must specify a source to manage the server key.')
     } else {
       $server_key = '/etc/nsd/nsd_server.key'
       file { $server_key:
-        ensure => present,
-        mode   => '0640',
-        owner  => 0,
-        group  => 0,
-        source => $server_key_file,
+        ensure  => present,
+        mode    => '0640',
+        owner   => 0,
+        group   => 0,
+        source  => $server_key_file,
+        require => File['/etc/nsd'],
+        before  => Concat::Fragment['nsd-remote'],
       }
     }
   } else {
@@ -159,11 +175,13 @@ class nsd::remote (
     } else {
       $server_cert = '/etc/nsd/nsd_server.pem'
       file { $server_cert:
-        ensure => present,
-        mode   => '0640',
-        owner  => 0,
-        group  => 0,
-        source => $server_cert_file,
+        ensure  => present,
+        mode    => '0640',
+        owner   => 0,
+        group   => 0,
+        source  => $server_cert_file,
+        require => File['/etc/nsd'],
+        before  => Concat::Fragment['nsd-remote'],
       }
     }
   } else {
@@ -176,11 +194,13 @@ class nsd::remote (
     } else {
       $control_key = '/etc/nsd/nsd_control.key'
       file { $control_key:
-        ensure => present,
-        mode   => '0640',
-        owner  => 0,
-        group  => 0,
-        source => $control_key_file,
+        ensure  => present,
+        mode    => '0640',
+        owner   => 0,
+        group   => 0,
+        source  => $control_key_file,
+        require => File['/etc/nsd'],
+        before  => Concat::Fragment['nsd-remote'],
       }
     }
   } else {
@@ -193,11 +213,13 @@ class nsd::remote (
     } else {
       $control_cert = '/etc/nsd/nsd_control.pem'
       file { $control_cert:
-        ensure => present,
-        mode   => '0640',
-        owner  => 0,
-        group  => 0,
-        source => $control_cert_file,
+        ensure  => present,
+        mode    => '0640',
+        owner   => 0,
+        group   => 0,
+        source  => $control_cert_file,
+        require => File['/etc/nsd'],
+        before  => Concat::Fragment['nsd-remote'],
       }
     }
   } else {

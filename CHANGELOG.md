@@ -4,6 +4,18 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 [puppet modules](https://forge.puppetlabs.com) it adheres to
 [semantic versioning](http://semver.org).
 
+## [Unreleased]
+
+This release adds initial acceptance testing with beaker and rspec tests for
+nsd remote. It also adds Ubuntu 14.04 to the list of supported operating
+systems.
+
+### Additions
+
+* Rspec tests for `nsd::remote`.
+* Custom function to validate an array of IP addresses.
+* Acceptance tests for `nsd::remote`
+
 ## [0.5.3] 2015-05-18
 
 This release adds tests for zonefiles.

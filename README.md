@@ -527,6 +527,30 @@ to end in a period.
 An array of hashes of the records that the zone should serve. Each hash needs to
 have three keys: name, type, and location.
 
+### Functions
+
+This module defines several custom functions in order to validate data.
+
+#### `validate_ip_address_array`
+
+Validates an array of IP addresses, raising a ParseError should one or more
+addresses fail. Validates both v4 and v6 IP addresses.
+
+##### Examples
+
+The following values will pass:
+
+```puppet
+validate_ip_address_array(['127.0.0.1', '::1'])
+```
+
+The following values will raise an error:
+
+```puppet
+validate_ip_address_array('127.0.0.1')
+validate_ip_address_array(['not-an-address'])
+```
+
 ## Limitations
 
 This module has been tested on:

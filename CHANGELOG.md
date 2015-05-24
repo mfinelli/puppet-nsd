@@ -4,6 +4,15 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 [puppet modules](https://forge.puppetlabs.com) it adheres to
 [semantic versioning](http://semver.org).
 
+## [Unreleased]
+
+This release adds more tests and validations for manifests.
+
+### Additions
+
+* New validation function for zonefile nameservers to ensure that all of them
+  end in a full stop.
+
 ## [0.5.5] 2015-05-24
 
 This release is a hotfix to the puppet requirements in the metadata.

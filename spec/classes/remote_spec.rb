@@ -209,4 +209,81 @@ describe 'nsd::remote' do
                        /You must specify a source to manage the control cert/)
     end
   end
+
+  context 'with server key management' do
+    let(:params) { {
+        :server_key_manage => true,
+        :server_key_file => 'puppet:///modules/nsd/server.key'
+    } }
+
+    it do
+      should contain_file('/etc/nsd/nsd_server.key')
+                 .with(
+                     {
+                         'ensure' => 'present',
+                         'owner' => 0,
+                         'group' => 0,
+                         'mode' => '0640',
+                     }
+                 )
+    end
+  end
+
+  context 'with server cert management' do
+    let(:params) { {
+        :server_cert_manage => true,
+        :server_cert_file => 'puppet:///modules/nsd/server.cert'
+    } }
+
+    it do
+      should contain_file('/etc/nsd/nsd_server.pem')
+                 .with(
+                     {
+                         'ensure' => 'present',
+                         'owner' => 0,
+                         'group' => 0,
+                         'mode' => '0640',
+                     }
+                 )
+    end
+  end
+
+  context 'with control key management' do
+    let(:params) { {
+        :control_key_manage => true,
+        :control_key_file => 'puppet:///modules/nsd/control.key'
+    } }
+
+    it do
+      should contain_file('/etc/nsd/nsd_control.key')
+                 .with(
+                     {
+                         'ensure' => 'present',
+                         'owner' => 0,
+                         'group' => 0,
+                         'mode' => '0640',
+                     }
+                 )
+    end
+  end
+
+  context 'with control cert management' do
+    let(:params) { {
+        :control_cert_manage => true,
+        :control_cert_file => 'puppet:///modules/nsd/control.cert'
+    } }
+
+    it do
+      should contain_file('/etc/nsd/nsd_control.pem')
+                 .with(
+                     {
+                         'ensure' => 'present',
+                         'owner' => 0,
+                         'group' => 0,
+                         'mode' => '0640',
+                     }
+                 )
+    end
+  end
+
 end

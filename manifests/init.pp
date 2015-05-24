@@ -92,7 +92,7 @@ class nsd (
   $service_manage  = $nsd::params::service_manage,
   $config          = $nsd::params::config,
   $config_template = $nsd::params::config_template,
-  $options         = {},
+  $options         = { },
 ) inherits nsd::params {
   anchor { 'nsd::start': } ->
     class { '::nsd::install': } ->

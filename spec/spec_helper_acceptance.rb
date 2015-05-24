@@ -15,8 +15,13 @@ RSpec.configure do |c|
     # Install module
     puppet_module_install(:source => module_root, :module_name => 'nsd')
     hosts.each do |host|
-      on host, puppet('module', 'install', 'puppetlabs-stdlib'), {:acceptable_exit_codes => [0, 1]}
-      on host, puppet('module', 'install', 'puppetlabs-concat'), {:acceptable_exit_codes => [0, 1]}
+      # Install module dependencies.
+      on host, puppet('module', 'install',
+                      'puppetlabs-stdlib', '--version 4.6.0'),
+         {:acceptable_exit_codes => [0, 1]}
+      on host, puppet('module', 'install',
+                      'puppetlabs-concat', '--version 1.2.1'),
+         {:acceptable_exit_codes => [0, 1]}
 
       # Copy over the files we need.
       %w(control.cert control.key server.cert server.key).each do |file|

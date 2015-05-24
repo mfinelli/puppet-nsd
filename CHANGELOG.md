@@ -7,7 +7,8 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 ## [Unreleased]
 
 This release adds initial acceptance testing with beaker and rspec tests for
-nsd remote.
+nsd remote. It also adds Ubuntu 14.04 to the list of supported operating
+systems.
 
 ### Additions
 

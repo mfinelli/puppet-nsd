@@ -4,6 +4,10 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 [puppet modules](https://forge.puppetlabs.com) it adheres to
 [semantic versioning](http://semver.org).
 
+## [0.5.5] 2015-05-24
+
+This release is a hotfix to the puppet requirements in the metadata.
+
 ## [0.5.4] 2015-05-24
 
 This release adds initial acceptance testing with beaker and rspec tests for

@@ -161,6 +161,8 @@ class nsd::remote (
         owner  => 0,
         group  => 0,
         source => $server_key_file,
+        require => File['/etc/nsd'],
+        before => Concat::Fragment['nsd-remote'],
       }
     }
   } else {
@@ -178,6 +180,8 @@ class nsd::remote (
         owner  => 0,
         group  => 0,
         source => $server_cert_file,
+        require => File['/etc/nsd'],
+        before => Concat::Fragment['nsd-remote'],
       }
     }
   } else {
@@ -195,6 +199,8 @@ class nsd::remote (
         owner  => 0,
         group  => 0,
         source => $control_key_file,
+        require => File['/etc/nsd'],
+        before => Concat::Fragment['nsd-remote'],
       }
     }
   } else {
@@ -212,6 +218,8 @@ class nsd::remote (
         owner  => 0,
         group  => 0,
         source => $control_cert_file,
+        require => File['/etc/nsd'],
+        before => Concat::Fragment['nsd-remote'],
       }
     }
   } else {

@@ -99,4 +99,12 @@ class nsd (
     class { '::nsd::config': } ~>
     class { '::nsd::service': } ->
   anchor { 'nsd::end': }
+
+  # Remote files require that we have the directory first.
+  file { '/etc/nsd/':
+    ensure => 'directory',
+    mode   => '0755',
+    owner  => 0,
+    group  => 0
+  }
 }

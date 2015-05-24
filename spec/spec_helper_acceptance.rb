@@ -17,6 +17,11 @@ RSpec.configure do |c|
     hosts.each do |host|
       on host, puppet('module', 'install', 'puppetlabs-stdlib'), {:acceptable_exit_codes => [0, 1]}
       on host, puppet('module', 'install', 'puppetlabs-concat'), {:acceptable_exit_codes => [0, 1]}
+
+      # Copy over the files we need.
+      %w(control.cert control.key server.cert server.key).each do |file|
+        scp_to(host, module_root + '/spec/fixtures/files/' + file, '/root/' + file)
+      end
     end
   end
 end

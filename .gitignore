@@ -1,1 +1,8 @@
+# Built packages
 pkg
+
+# Should build on multiple platforms
+Gemfile.lock
+
+# Don't check in logs
+log

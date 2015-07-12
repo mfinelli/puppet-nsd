@@ -13,6 +13,10 @@ This release adds more tests and validations for manifests.
 * New validation function for zonefile nameservers to ensure that all of them
   end in a full stop.
 
+## [0.5.6] 2015-07-12
+
+This release is a hotfix to remove leading spaces from zonefile records.
+
 ## [0.5.5] 2015-05-24
 
 This release is a hotfix to the puppet requirements in the metadata.

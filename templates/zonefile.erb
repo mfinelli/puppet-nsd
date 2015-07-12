@@ -39,6 +39,6 @@ $TTL <%= @ttl %>
 <%- end -%>
 
 <%- @records.each do |record| -%>
-  <%- -%> <%= record['name'] %> <%= record['type'] %> <%= record['location'] %>
+<%= record['name'] %> <%= record['type'] %> <%= record['location'] %>
 <%- end -%>
 

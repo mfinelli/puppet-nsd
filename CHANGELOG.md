@@ -12,6 +12,7 @@ This release adds more tests and validations for manifests.
 
 * New validation function for zonefile nameservers to ensure that all of them
   end in a full stop.
+* Puppet 4.2 in the testing matrix!
 
 ## [0.5.6] 2015-07-12
 

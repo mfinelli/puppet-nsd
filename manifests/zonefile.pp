@@ -172,6 +172,7 @@ define nsd::zonefile (
     owner   => 0,
     group   => 0,
     content => template('nsd/zonefile.erb'),
+    notify  => Service['nsd'],
   }
 
   if $include_in_config {

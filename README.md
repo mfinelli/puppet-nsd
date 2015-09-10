@@ -173,10 +173,10 @@ with the master pattern from above:
     {'name' => 'ns1', 'type' => 'A', 'location' => '127.0.0.1'},
     {'name' => 'ns2', 'type' => 'A', 'location' => '127.0.0.2'},
     {'name' => '@', 'type' => 'A', 'location' => '123.123.123.123'},
-    {'name' => 'www', 'type' => 'CNAME' 'location' => '@'},
+    {'name' => 'www', 'type' => 'CNAME', 'location' => '@'},
   ],
   'include-options' => {
-    'include-pattern' => 'to_slave_127.0.0.1'
+    'include-pattern' => 'to_slave_127.0.0.1',
   },
 }
 ```

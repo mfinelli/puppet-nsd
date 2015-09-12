@@ -4,6 +4,16 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 [puppet modules](https://forge.puppetlabs.com) it adheres to
 [semantic versioning](http://semver.org).
 
+## [0.6.1] - 2015-09-11
+
+This release hotfixes the admin email address validation.
+
+### Changes
+
+* Fix syntax errors in the sample zonefile in the readme.
+* Relax the validation rules for the admin email address. Specifically, allow
+  email addresses with more than one full stop in them (subdomains).
+
 ## [0.6.0] - 2015-07-29
 
 This release adds more tests and validations for manifests.

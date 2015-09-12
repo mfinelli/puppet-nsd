@@ -133,7 +133,7 @@ define nsd::zonefile (
   # Now fail a full email validation. If we did this first an unsuspecting user
   # might not realize that the only error was a full stop in an otherwise valid
   # email address.
-  unless $admin_email =~ /^[A-Za-z0-9]+@[a-z0-9]+\.[a-z]+$/ {
+  unless $admin_email =~ /^[A-Za-z0-9]+@([a-z0-9]+\.)+[a-z]+$/ {
     fail('Admin email address is invalid.')
   }
 

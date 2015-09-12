@@ -91,6 +91,16 @@ describe 'nsd::zonefile' do
     end
   end
 
+  context 'with email address that has more than one dot' do
+    let(:params) { {
+        :admin_email   => 'admin@example.example.com',
+        :serial_number => 1,
+        :nameservers   => ['ns1.example.com.']
+    } }
+
+    it { should contain_nsd__zonefile('example.com') }
+  end
+
   context 'with nameservers not an array' do
     let(:params) { {
         :admin_email => 'admin@example.com',

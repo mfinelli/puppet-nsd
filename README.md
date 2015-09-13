@@ -1,6 +1,7 @@
 # nsd
 
 [![Build Status](https://travis-ci.org/mfinelli/puppet-nsd.svg?branch=master)](https://travis-ci.org/mfinelli/puppet-nsd)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/mfinelli/nsd.svg)](https://forge.puppetlabs.com/mfinelli/nsd)
 
 #### Table of Contents
 

@@ -38,6 +38,7 @@ where appropriate.
 
 * Only non-default configuration options are written to `etc/nsd/nsd.conf`.
 * Also manages the nsd package and service (unless `service_manage = false`).
+* Create and manage BIND-compatible zone files.
 
 ### Beginning with nsd
 

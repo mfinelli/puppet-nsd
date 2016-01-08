@@ -4,6 +4,14 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 [puppet modules](https://forge.puppetlabs.com) it adheres to
 [semantic versioning](http://semver.org).
 
+## [Unreleased]
+
+This release prepares for a stable 1.0.0 release.
+
+### Changes
+
+* Add small documentation updates.
+
 ## [0.6.1] - 2015-09-11
 
 This release hotfixes the admin email address validation.

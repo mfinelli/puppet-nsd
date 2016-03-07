@@ -79,7 +79,7 @@
 #       {'name' => '@', 'type' => 'A', 'location' => '123.123.123.123'},
 #       {'name' => 'www', 'type' => 'CNAME' 'location' => '@'},
 #     ],
-#     'include-options' => {
+#     'include_options' => {
 #       'include-pattern' => 'to_slave_127.0.0.1'
 #     },
 #   }

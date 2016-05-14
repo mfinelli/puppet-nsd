@@ -1,6 +1,7 @@
 # nsd
 
 [![Build Status](https://travis-ci.org/mfinelli/puppet-nsd.svg?branch=master)](https://travis-ci.org/mfinelli/puppet-nsd)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/mfinelli/nsd.svg)](https://forge.puppetlabs.com/mfinelli/nsd)
 
 #### Table of Contents
 
@@ -36,6 +37,7 @@ where appropriate.
 
 * Only non-default configuration options are written to `etc/nsd/nsd.conf`.
 * Also manages the nsd package and service (unless `service_manage = false`).
+* Create and manage BIND-compatible zone files.
 
 ### Beginning with nsd
 
@@ -175,7 +177,7 @@ with the master pattern from above:
     {'name' => '@', 'type' => 'A', 'location' => '123.123.123.123'},
     {'name' => 'www', 'type' => 'CNAME', 'location' => '@'},
   ],
-  'include-options' => {
+  'include_options' => {
     'include-pattern' => 'to_slave_127.0.0.1',
   },
 }

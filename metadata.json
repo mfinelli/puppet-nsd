@@ -1,6 +1,6 @@
 {
   "name": "mfinelli-nsd",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "author": "mfinelli",
   "summary": "Manage NSD authoritative name server.",
   "license": "Apache-2.0",
@@ -45,7 +45,7 @@
     },
     {
       "name": "puppetlabs/concat",
-      "version_requirement": ">= 1.2.1 < 2.0.0"
+      "version_requirement": ">= 1.2.1 < 3.0.0"
     }
   ]
 }

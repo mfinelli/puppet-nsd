@@ -7,10 +7,11 @@
 # The following values will pass:
 #
 # validate_nameserver(['ns1.example.com.'])
+# validate_nameserver(['ns1.example.com'])
 #
 # The following values will raise an error:
 #
-# validate_nameserver(['ns1.example.com'])
+# validate_nameserver('ns1.example.com')
 #
 # === Authors
 #
@@ -34,16 +35,15 @@
 #
 module Puppet::Parser::Functions
   newfunction(:validate_nameserver, :doc => <<-ENDHEREDOC
-    Validates an array of nameservers, raising a ParseError if they don't all
-    end in a full stop.
-
+    Validates an array of nameservers, ensuring that it is an array.
     The following values will pass:
 
     validate_nameserver(['ns1.example.com.'])
+    validate_nameserver(['ns1.example.com'])
 
     The following values will raise an error:
 
-    validate_nameserver(['ns1.example.com'])
+    validate_nameserver('ns1.example.com')
 
   ENDHEREDOC
   ) do |args|
@@ -60,15 +60,6 @@ module Puppet::Parser::Functions
       error_msg = "#{args[0].inspect} is not an Array.  It looks to be a " +
           "#{args[0].class}"
       raise Puppet::ParseError, (error_msg)
-    end
-
-    # All nameservers should end in a full stop.
-    args[0].each do |nameserver|
-      unless nameserver.match(/\.$/)
-        raise Puppet::ParseError,
-              ('All nameservers must end in a full stop. ' +
-                  "(#{nameserver.inspect})")
-      end
     end
 
   end

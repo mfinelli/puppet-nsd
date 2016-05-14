@@ -4,13 +4,14 @@ This file keeps track of notable changes to the NSD puppet module. Like all
 [puppet modules](https://forge.puppetlabs.com) it adheres to
 [semantic versioning](http://semver.org).
 
-## [Unreleased]
+## [0.7.0] - 2016-05-14
 
-This release prepares for a stable 1.0.0 release.
+This release removes the requirements on fully qualified nameservers.
 
 ### Changes
 
 * Add small documentation updates.
+* Do not require nameservers to end in a full stop.
 
 ## [0.6.1] - 2015-09-11
 
